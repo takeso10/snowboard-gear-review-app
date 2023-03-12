@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { auth } from './firebase'
 import { useAuthState} from "react-firebase-hooks/auth"
 import { Home } from './pages/Home'
-import {Signin} from './pages/Signin'
+import { Signin } from './pages/Signin'
 import { Profile } from './pages/Profile'
+import { Signup} from "./pages/Signup"
+import {NewProfile} from "./pages/NewProfile"
 
 
 export const Router = () =>{
@@ -16,11 +18,16 @@ export const Router = () =>{
                     <>
                         <Route path = "/" element={<Home/>}/>
                         <Route path ='profile' element={<Profile/>}/>
+                        <Route path ="signin" element={<Navigate replace to ="/"/>}/>
+                        <Route path ="newProfile" element={<NewProfile/>}/>
                     </>
                 ):(
                     <>
-                        <Route path = "/" element={<Navigate replace to ="/Signin"/>}/>
+                        <Route path = "/" element={<Navigate replace to ="/signin"/>}/>
                         <Route path ='signin' element={<Signin/>}/>
+                        <Route path ="profile" element={<Navigate replace to ="/signin"/>}/>
+                        <Route path ='signup' element={<Signup/>}/>
+
                     </>
                 )}
             </Routes>
