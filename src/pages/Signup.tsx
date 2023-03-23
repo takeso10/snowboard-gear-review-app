@@ -1,16 +1,22 @@
-import {React,useState} from 'react'
+import React from 'react'
+import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import {useForm} from 'react-hook-form';
+import {useForm,SubmitHandler} from 'react-hook-form';
 import { signInWithPopup } from "firebase/auth";
 import {auth, provider } from "../firebase";
 import {createUserWithEmailAndPassword,getAuth } from "firebase/auth";
 
+type Inputs ={
+    email:string,
+    password:string
+}
+
 export const Signup=()=>{
     const navigate = useNavigate()
-    const {register, handleSubmit,formState: { errors }}=useForm();
+    const {register, handleSubmit,formState: { errors }}=useForm<Inputs>();
     const[error,setErrors]=useState()
 
-    const onSubmit=(data)=>{
+    const onSubmit:SubmitHandler<Inputs>=(data)=>{
         const auth = getAuth()
         console.log(data)
         createUserWithEmailAndPassword(auth,data.email,data.password)
