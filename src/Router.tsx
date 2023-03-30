@@ -8,6 +8,7 @@ import { Profile } from './pages/Profile'
 import { Signup} from "./pages/Signup"
 import {NewProfile} from "./pages/NewProfile"
 import NewReview from './pages/NewReview'
+import ReviewDetail from './pages/ReviewDetail'
 
 
 export const Router = () =>{
@@ -21,7 +22,8 @@ export const Router = () =>{
                         <Route path ='profile' element={<Profile/>}/>
                         <Route path ="signin" element={<Navigate replace to ="/"/>}/>
                         <Route path ="newProfile" element={<NewProfile/>}/>
-                        <Route path ="newReview" element={<NewReview/>}/>
+                        <Route path ="newReview" element={<NewReview/>}/> 
+                        <Route path ="reviewDetail/:id" element={<ReviewDetail/>}/> 
                     </>
                 ):(
                     <>

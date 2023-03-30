@@ -1,4 +1,4 @@
-import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp, Timestamp } from 'firebase/firestore';
 import React, { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -12,7 +12,7 @@ type Inputs={
   gearName:string,
   review:string,
   condition:string,
-  day:number,
+  day:Timestamp,
   userID:string,
 }
 
@@ -24,12 +24,16 @@ export default function NewReview() {
   const [brandList,setBrandList]=useState([])
 
 
-  const onSubmit:SubmitHandler<Inputs>=(data)=>{
-    data.day=new Date().getTime()
-    const test =new Date().getTime()
-    console.log(new Date(test))
-    data.userID=user!.uid
-    addDoc(collection(db,"reviews"),data)
+  const onSubmit:SubmitHandler<Inputs>=(data:Inputs)=>{
+    addDoc(collection(db,"reviews"),{
+      category:data.category,
+      brand:data.brand,
+      gearName:data.gearName,
+      review:data.review,
+      condition:data.condition,
+      day:serverTimestamp(),
+      userID:user!.uid,
+    })
     console.log(data)
     navigate('/')
   }
