@@ -48,6 +48,7 @@ export function ReviewDetail() {
             <p>{reviewDetail?.brand}</p>
             <p>{reviewDetail?.gearName}</p>
             <h2>{reviewDetail?.review}</h2>
+            <p>{reviewDetail?.total}</p>
         </div>
     </>
   )

@@ -5,6 +5,8 @@ import { doc, getDoc, setDoc} from "firebase/firestore";
 import {useForm ,SubmitHandler} from 'react-hook-form';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { storage } from "../firebase"
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage"
 //import { SetprofileSet } from "./Profile";
 
 type Inputs ={
@@ -13,13 +15,17 @@ type Inputs ={
     style:string,
     experience:number,
     days:string,
-    home:string
+    home:string,
+    ImageName:string
 }
 
 export const NewProfile =()=>{
     const navigate = useNavigate()
     const [user]=useAuthState(auth)
     const {register, handleSubmit,formState: { errors }}=useForm<Inputs>();
+    const [ImageName, setImageName]=useState<string>('')
+    const [iconURL,setIconURL]=useState<string>('')
+
     const [profile,setProfile]=useState<Inputs>(
         {
             days:'',
@@ -27,19 +33,54 @@ export const NewProfile =()=>{
             home:'',
             style:'',
             name:'',
-            email:""
+            email:"",
+            ImageName:""
         }
     )
+
+    const UploadImage=(e:any)=>{
+        console.log(e.target.files[0])
+        const file = e.target.files[0]
+        const storageRef = ref(storage, "image/" + file.name)
+        uploadBytes(storageRef, file).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+        });
+        setImageName(file.name)
+        const iconRef = ref(storage, `image/${file.name}`)
+        getDownloadURL(iconRef)
+            .then((url)=>{
+                setIconURL(url)
+            })
+            .catch((error)=>{
+                switch (error.code) {
+                    case 'storage/object-not-found':
+                      // File doesn't exist
+                      break;
+                    case 'storage/unauthorized':
+                      // User doesn't have permission to access the object
+                      break;
+                    case 'storage/canceled':
+                      // User canceled the upload
+                      break;
+              
+                    // ...
+              
+                    case 'storage/unknown':
+                      // Unknown error occurred, inspect the server response
+                      break;
+                  }
+            })
+    }
 
     const onSubmit:SubmitHandler<Inputs> = (data)=>{
         console.log(user)
         data.email=user!.email!
+        data.ImageName=ImageName
         console.log(data)
         setDoc(doc(db, "profiles",user!.uid!),data)
-        //SetprofileSet(true)
         navigate('/profile')
     }
-
+    
     useEffect(()=>{
         const docRef = doc(db, "profiles",user!.uid!)
         getDoc(docRef).then((docSnap)=>{
@@ -55,8 +96,14 @@ export const NewProfile =()=>{
         <>
         <Header/>
         <div className="new-profile">
-            <h1>プロフィール作成</h1>
-            <form className="profile-form" onClick={handleSubmit(onSubmit)}>
+            <h1>プロフィール作成・編集</h1>
+            <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
+                <label htmlFor = "icon">アイコン</label>
+                <br/>
+                <input type = "file" accept = ".png, .jpeg, .jpg" onChange={UploadImage}></input>
+                <br/>
+                <img src={iconURL}></img>
+                <br/>
                 <label htmlFor ="name">ユーザー名</label>
                 <br/>
                 <input
@@ -123,7 +170,7 @@ export const NewProfile =()=>{
                     })}
                 />
                 <br/>
-            <button type="submit"  className="signup-button">作成</button>
+            <button type="submit"  className="signup-button">作成・編集</button>
             </form>
         </div>
         </>

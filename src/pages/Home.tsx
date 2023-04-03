@@ -99,7 +99,8 @@ export const Home=()=>{
                                     <div className='review-detail' onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
                                         <p>{review.reviewItem.brand}</p>
                                         <p>{review.reviewItem.gearName}</p>
-                                        <p>{review.reviewItem.review}</p>
+                                        <h2>{review.reviewItem.review}</h2>
+                                        <p>★{review.reviewItem.total}</p>
                                     </div>
                                     <button onClick={()=>{OnGood(review.reviewID)}}>❤ {review.LikedUserCount}</button>
                                     <br/>

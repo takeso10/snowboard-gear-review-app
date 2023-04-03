@@ -1,17 +1,20 @@
 import React from 'react'
 import {useEffect,useState} from 'react'
 import {Header} from "../components/Header"
-import {auth,db} from "../firebase"
+import {auth,db, storage} from "../firebase"
 import { useAuthState} from "react-firebase-hooks/auth"
 import { getDoc,doc} from "firebase/firestore";
 import { useNavigate } from 'react-router-dom'
+import { getDownloadURL, ref } from 'firebase/storage'
 
-type Inputs={
+type Inputs ={
     name:string,
+    email:string,
     style:string,
     experience:number,
     days:string,
-    home:string
+    home:string,
+    ImageName:string
 }
 
 
@@ -19,13 +22,16 @@ type Inputs={
 export const Profile =()=>{
     const [user]=useAuthState(auth)
     const navigate = useNavigate()
+    const [iconURL,setIconURL]=useState<string>('')
     const [profile,setProfile]=useState<Inputs>(
         {
             days:'',
             experience:0,
             home:'',
             style:'',
-            name:''
+            name:'',
+            email:"",
+            ImageName:""
         }
     )
     const [profileSet,SetProfileSet]=useState(false)
@@ -38,6 +44,30 @@ export const Profile =()=>{
             }
             else{
                 setProfile(docSnap.data() as Inputs)
+                const iconRef = ref(storage, `image/${docSnap.data()!.ImageName}`)
+                getDownloadURL(iconRef)
+                    .then((url)=>{
+                        setIconURL(url)
+                    })
+                    .catch((error)=>{
+                    switch (error.code) {
+                        case 'storage/object-not-found':
+                        // File doesn't exist
+                        break;
+                        case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+                        case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+              
+                       // ...
+              
+                        case 'storage/unknown':
+                          // Unknown error occurred, inspect the server response
+                        break;
+                    }
+                })
             }
         })
     },[])
@@ -45,8 +75,10 @@ export const Profile =()=>{
     return(
         <>
         <Header/>
+        <br/>
         {profile?(
         <div className="profile">
+            <img src={iconURL}></img>
             <h1>ユーザー名</h1>
             <p>{profile!.name}</p>
             <h2>メールアドレス</h2>
