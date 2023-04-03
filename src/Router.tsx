@@ -8,7 +8,7 @@ import { Profile } from './pages/Profile'
 import { Signup} from "./pages/Signup"
 import {NewProfile} from "./pages/NewProfile"
 import NewReview from './pages/NewReview'
-import ReviewDetail from './pages/ReviewDetail'
+import {ReviewDetail} from './pages/ReviewDetail'
 
 
 export const Router = () =>{

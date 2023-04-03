@@ -9,45 +9,46 @@ type ReviewItem={
     brand:string,
     gearName:string,
     review:string,
-    condition:string,
     day:Timestamp,
-    userID:string
+    userID:string,
+    park:number,
+    gt:number,
+    carving:number,
+    powder:number,
+    allMountain:number,
+    flex:number,
+    total:number,
 }
 
-export default function ReviewDetail() {
+export function ReviewDetail() {
     const navigate = useNavigate()
     const location = useLocation()
     const [selectedReviewID,setSelectedReviewID] = useState(location.state as {reviewID:string})
-    const [reviewDetail,setReviewDetail] = useState<ReviewItem>({
-        category:' ',
-        brand:' ',
-        gearName:' ',
-        review:' ',
-        condition:' ',
-        day:2020-04-01 08:30:00,
-        userID:''
-    })
+    const [reviewDetail,setReviewDetail] = useState<ReviewItem>()
 
     useEffect(()=>{
         (async ()=>{
-            console.log(selectedReviewID)
+            console.log(selectedReviewID.reviewID)
             const docRef = doc(db,"reviews",selectedReviewID.reviewID)
             const docSnap = await getDoc(docRef)
             if(docSnap.exists()){
+                console.log(docSnap.data())
                 setReviewDetail(docSnap.data() as ReviewItem)
             }else{
                 navigate('/')
             }
-
+            console.log(reviewDetail)
     })()},
     [])
 
   return (
-    <div className="main">
+    <>
         <Header/>
-        <div className="review">
-            <h2>{reviewDetail!.review}</h2>
+        <div className="main">
+            <p>{reviewDetail?.brand}</p>
+            <p>{reviewDetail?.gearName}</p>
+            <h2>{reviewDetail?.review}</h2>
         </div>
-    </div>
+    </>
   )
 }

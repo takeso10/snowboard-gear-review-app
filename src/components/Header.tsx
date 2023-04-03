@@ -32,8 +32,7 @@ export const Header=()=>{
 
     return(
         <>
-            <button onClick={()=>{navigate('/')}}><h1>スノギア</h1></button>
-            <br/>
+            <h1 onClick={()=>{navigate('/')}}>スノギア</h1>
             {name ? (
                 <>
                     <p>{name}さん</p>

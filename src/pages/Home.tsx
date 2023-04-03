@@ -14,7 +14,14 @@ type ReviewItem={
     review:string,
     condition:string,
     day:Timestamp,
-    userID:string
+    userID:string,
+    park:number,
+    gt:number,
+    carving:number,
+    powder:number,
+    allMountain:number,
+    flex:number,
+    total:number,
 }
 
 type Reviews = {
@@ -62,7 +69,6 @@ export const Home=()=>{
             const querySnapshot = await getDocs(query(collection(db, "reviews"),orderBy('day','desc')));
             querySnapshot.forEach(async (doc)=>{
                 const LikedUserCount = await getCountFromServer(query(collection(db,'reviews',doc.id,'LikedUserID')))
-                console.log(LikedUserCount.data())
                 setReviews((reviews)=>[...reviews,{
                     reviewID:doc.id,
                     reviewItem:doc.data() as ReviewItem,
@@ -89,8 +95,8 @@ export const Home=()=>{
                     <ul className="review-list">
                         {reviews.map((review:Reviews,index)=>{
                             return(
-                                <div key={index} onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} className='review-item'>
-                                    <div className='review-detail'>
+                                <div key={index} className='review-item'>
+                                    <div className='review-detail' onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
                                         <p>{review.reviewItem.brand}</p>
                                         <p>{review.reviewItem.gearName}</p>
                                         <p>{review.reviewItem.review}</p>

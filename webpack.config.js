@@ -1,4 +1,5 @@
 const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
@@ -13,12 +14,21 @@ module.exports = {
             {
                 test:/\.tsx?$/,
                 loader:'ts-loader',
-            }
+            },
+            {
+                test: /\.(scss|sass|css)$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            },
         ]
     },
     resolve:{
         extensions:['.ts','.tsx','.js','.json']
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+          filename: 'style.css', // アウトプットCSSファイル
+        }),
+    ],
     devServer: {
         contentBase: path.join(__dirname, '/dist'),
         open: true,
