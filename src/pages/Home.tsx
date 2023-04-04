@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 import { auth, db } from '../firebase'
 import { useAuthState} from "react-firebase-hooks/auth"
 import {Header} from '../components/Header'
-import {collection, doc, getCountFromServer, getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp } from 'firebase/firestore'
+import {collection, doc, getCountFromServer, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp } from 'firebase/firestore'
 import { useNavigate } from "react-router-dom";
 
 
@@ -75,15 +75,24 @@ export const Home=()=>{
                     LikedUserCount:LikedUserCount.data().count
                 }])
             })
-            
+            console.log(reviews)
         })()
     },[])
 
-    const OnGood=(e:string)=>{
+    const OnGood=async (e:string)=>{
         console.log(e)
         setDoc(doc(db,'reviews',e,'LikedUserID',user!.uid),{
             LikedUser:user!.uid,
             createTime:serverTimestamp()
+        })
+        const querySnapshot = await getDocs(query(collection(db, "reviews"),orderBy('day','desc')));
+        querySnapshot.forEach(async (doc)=>{
+            const LikedUserCount = await getCountFromServer(query(collection(db,'reviews',doc.id,'LikedUserID')))
+            setReviews((reviews)=>[...reviews,{
+                reviewID:doc.id,
+                reviewItem:doc.data() as ReviewItem,
+                LikedUserCount:LikedUserCount.data().count
+            }])
         })
     }
 

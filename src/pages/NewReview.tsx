@@ -1,5 +1,5 @@
-import { addDoc, collection, serverTimestamp, Timestamp } from 'firebase/firestore';
-import React, { useState } from 'react'
+import { addDoc, collection, getDocs, query, serverTimestamp, Timestamp } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -24,14 +24,48 @@ type Inputs={
   total:number,
 }
 
+type Brand={
+  name:string
+}
+
 export default function NewReview() {
   const navigate = useNavigate()
   const [user]=useAuthState(auth)
   const {register, handleSubmit,formState: { errors }}=useForm<Inputs>()
+  const [brands, setBrands] = useState<Brand[]>([])
+  const [gearNames,setGearNames] = useState<Brand[]>([])
+  const [selectedBrand, setSelectedBrand] = useState<string>("BURTON")
+  const [selectedCategory, setSelectedCategory]= useState('board')
 
-  //const [brandList,setBrandList]=useState([])
+  useEffect(()=>{
+    (async()=>{
+      const q = query(collection(db, "brands"))
+      const querySnapshot = await getDocs(q)
+      querySnapshot.forEach((doc)=>{
+        console.log(doc.data())
+        setBrands((brands)=>[...brands,{
+          name:doc.data().name
+        }])
+      })
+    })()
+  },[])
 
-  //const styleList:string[] = ["park","gt","carving","powder","allMountain"]
+  const onChangeBrand=(e:any)=>{
+    setSelectedBrand(e)
+  }
+
+  const OnChangeCategory=async (e:any)=>{
+    setSelectedCategory(e)
+    console.log(selectedBrand)
+    console.log(selectedCategory)
+    const gearListDocs = await getDocs(collection(db,"brands",selectedBrand,selectedCategory))
+    gearListDocs.forEach((doc)=>{
+      setGearNames((gearNames)=>[...gearNames,{
+        name:doc.data().name
+      }])
+      console.log(doc.data())
+    })
+  }
 
   const onSubmit:SubmitHandler<Inputs>=(data:Inputs)=>{
     addDoc(collection(db,"reviews"),{
@@ -61,6 +95,8 @@ export default function NewReview() {
         <form className="new-review-form" onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor ="name">ブランド</label>
                 <br/>
+                <button onClick={()=>{navigate('../EditBrands')}}>新規ブランド・ギア追加</button>
+                <br/>
                 <select 
                   className="brand-input" 
                   placeholder="brand" 
@@ -68,12 +104,13 @@ export default function NewReview() {
                         required:{
                             value:true,
                             message:'入力必須の項目です。'
-                        }})}>
-                    <option>CAPITA</option>
-                    <option>BURTON</option>
-                    <option>SALOMON</option>
-                    <option>SIMS</option>
-                    <option>RIDE</option>
+                        }})}
+                  onChange={(e)=>onChangeBrand(e.target.value)}>
+                    {brands.map((brand:Brand,index)=>{
+                      return(
+                        <option key={index} value={brand.name}>{brand.name}</option>
+                      )
+                    })}
                 </select>
                 <br/>
                 <label htmlFor ="category">カテゴリー</label>
@@ -86,16 +123,16 @@ export default function NewReview() {
                       value:true,
                       message:'入力必須の項目です。'
                     }
-                  })}>
-                    <option>ボード</option>
-                    <option>ビンディング</option>
-                    <option>ブーツ</option>
+                  })}
+                  onChange={(e)=>OnChangeCategory(e.target.value)}>
+                    <option value="board">ボード</option>
+                    <option value="binding">ビンディング</option>
+                    <option value="boots">ブーツ</option>
                 </select>
                 <br/>
                 <label htmlFor ="gearName">ギア名</label>
                 <br/>
-                <input
-                    type="text"
+                <select
                     placeholder="gearName"
                     className="gearName-input"
                     {...register('gearName',{
@@ -104,6 +141,11 @@ export default function NewReview() {
                             message:'入力必須の項目です。'
                         }
                     })}/>
+                    {gearNames.map((gearName:Brand,index)=>{
+                      return(
+                        <option key={index} value={gearName.name}>{gearName.name}</option>
+                      )
+                    })}
                 <br/>
                 <label htmlFor ="review">コメント</label>
                 <br/>

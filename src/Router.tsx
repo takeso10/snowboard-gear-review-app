@@ -9,6 +9,7 @@ import { Signup} from "./pages/Signup"
 import {NewProfile} from "./pages/NewProfile"
 import NewReview from './pages/NewReview'
 import {ReviewDetail} from './pages/ReviewDetail'
+import EditBrands from './pages/EditBrands'
 
 
 export const Router = () =>{
@@ -24,6 +25,7 @@ export const Router = () =>{
                         <Route path ="newProfile" element={<NewProfile/>}/>
                         <Route path ="newReview" element={<NewReview/>}/> 
                         <Route path ="reviewDetail/:id" element={<ReviewDetail/>}/> 
+                        <Route path ="editBrands" element={<EditBrands/>}/>
                     </>
                 ):(
                     <>
