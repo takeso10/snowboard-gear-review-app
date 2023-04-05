@@ -70,7 +70,7 @@ export default function EditBrands() {
     await addDoc(collection(db,"brands",data.brand,data.category),{
       name:data.gearName
     })
-    navigate('../newReview')
+    navigate('../snowboard-gear-review-app/newReview')
   }
 
   return (

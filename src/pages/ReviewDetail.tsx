@@ -35,7 +35,7 @@ export function ReviewDetail() {
                 console.log(docSnap.data())
                 setReviewDetail(docSnap.data() as ReviewItem)
             }else{
-                navigate('/')
+                navigate('snowboard-gear-review-app')
             }
             console.log(reviewDetail)
     })()},

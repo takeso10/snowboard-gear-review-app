@@ -21,7 +21,7 @@ export const Signup=()=>{
         console.log(data)
         createUserWithEmailAndPassword(auth,data.email,data.password)
         .then(()=>{
-            navigate('/signin') 
+            navigate('snowboard-gear-review-app/signin') 
         })
         .catch((error)=>{
             setErrors(error)
@@ -79,7 +79,7 @@ export const Signup=()=>{
                 <p>Googleでサインアップ</p>
             </button>
             <br/>
-            <button onClick={()=>{navigate('/signin')}}>
+            <button onClick={()=>{navigate('snowboard-gear-review-app/signin')}}>
             <p>ログイン</p>
             </button>
         </>

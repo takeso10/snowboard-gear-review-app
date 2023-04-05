@@ -27,7 +27,7 @@ export const Header=()=>{
     const signout=()=>{
         auth.signOut()
         console.log(auth)
-        navigate('/signin')
+        navigate('snowboard-gear-review-app/signin')
     }
 
     return(
@@ -37,13 +37,13 @@ export const Header=()=>{
                 <>
                     <p>{name}さん</p>
                     <button onClick={signout}>サインアウト</button>
-                    <button onClick={()=>{navigate('/profile')}}>プロフィール</button>
+                    <button onClick={()=>{navigate('snowboard-gear-review-app/profile')}}>プロフィール</button>
                     <br/>
                 </>
             ):(
                 <>
                     <button onClick={signout}>サインアウト</button>
-                    <button onClick={()=>{navigate('/profile')}}>プロフィール</button>
+                    <button onClick={()=>{navigate('snowboard-gear-review-app/profile')}}>プロフィール</button>
                     <br/>
                 </>
             )}

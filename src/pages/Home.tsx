@@ -101,11 +101,14 @@ export const Home=()=>{
             <>
                 <Header/>
                 <div className='reviews'>
+                    <div>
+                        
+                    </div>
                     <ul className="review-list">
                         {reviews.map((review:Reviews,index)=>{
                             return(
                                 <div key={index} className='review-item'>
-                                    <div className='review-detail' onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
+                                    <div className='review-detail' onClick={()=>{navigate(`snowboard-gear-review-app/reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
                                         <p>{review.reviewItem.brand}</p>
                                         <p>{review.reviewItem.gearName}</p>
                                         <h2>{review.reviewItem.review}</h2>
@@ -116,7 +119,7 @@ export const Home=()=>{
                                 </div>
                         )})}
                     </ul>
-                    <button onClick={()=>{navigate('/newReview')}}>新規投稿</button>
+                    <button onClick={()=>{navigate('snowboard-gear-review-app//newReview')}}>新規投稿</button>
                 </div>
             </>
         </div>
