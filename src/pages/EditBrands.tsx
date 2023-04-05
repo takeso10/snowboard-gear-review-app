@@ -1,6 +1,6 @@
 import React, { useEffect ,useState} from 'react'
 import { Header } from '../components/Header'
-import { addDoc, collection, getDocs, query } from 'firebase/firestore'
+import { addDoc, collection, doc, getDocs, query, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -18,7 +18,7 @@ type Inputs={
 export default function EditBrands() {
   const navigate = useNavigate() 
   const [brands, setBrands] = useState<Brand[]>([])
-  const [selectedBrand, setSelectedBrand]=useState<string>()
+  const [selectedBrand, setSelectedBrand]=useState<string>("BURTON")
   const [boards, setBoards] = useState<string[]>([])
   const [bindings, setBindings] = useState<string[]>([])
   const [boots, setBoots] = useState<string[]>([])
@@ -40,7 +40,7 @@ export default function EditBrands() {
   const handleBrand=(e:string)=>{
     (async()=>{
       setSelectedBrand(e);
-      const boardDocs = await getDocs(collection(db, "brands",selectedBrand!,"board"))
+      const boardDocs = await getDocs(collection(db, "brands",e,"board"))
       const boardList:string[] = []
       boardDocs.forEach((doc)=>{
         boardList.push(doc.data().name)
@@ -48,7 +48,7 @@ export default function EditBrands() {
       })
       setBoards(boardList)
 
-      const bindingDocs = await getDocs(collection(db, "brands",selectedBrand!,"binding"))
+      const bindingDocs = await getDocs(collection(db, "brands",e,"binding"))
       const bindingList:string[] = []
       bindingDocs.forEach((doc)=>{
         bindingList.push(doc.data().name)
@@ -56,7 +56,7 @@ export default function EditBrands() {
       })
       setBindings(bindingList)
 
-      const bootsDocs = await getDocs(collection(db, "brands",selectedBrand!,"binding"))
+      const bootsDocs = await getDocs(collection(db, "brands",e,"binding"))
       const bootsList:string[] = []
       bootsDocs.forEach((doc)=>{
         bootsList.push(doc.data().name)
@@ -67,7 +67,10 @@ export default function EditBrands() {
   }
 
   const onSubmit:SubmitHandler<Inputs>=async (data:Inputs)=>{
-    await addDoc(collection(db,"brands",data.brand,data.category),{
+    await setDoc(doc(db,"brands",data.brand!),{
+      name:data.brand
+    })
+    await setDoc(doc(db,"brands",data.brand,data.category,data.gearName),{
       name:data.gearName
     })
     navigate('../snowboard-gear-review-app/newReview')
@@ -84,6 +87,7 @@ export default function EditBrands() {
             <input
               placeholder="brand"
               className="brand-input"
+              defaultValue={selectedBrand}
               {...register("brand",{
                 required:{
                   value:true,

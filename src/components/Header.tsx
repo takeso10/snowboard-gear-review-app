@@ -32,18 +32,18 @@ export const Header=()=>{
 
     return(
         <>
-            <h1 onClick={()=>{navigate('/')}}>スノギア</h1>
+            <h1 onClick={()=>{navigate('../snowboard-gear-review-app')}}>スノギア</h1>
             {name ? (
                 <>
                     <p>{name}さん</p>
                     <button onClick={signout}>サインアウト</button>
-                    <button onClick={()=>{navigate('snowboard-gear-review-app/profile')}}>プロフィール</button>
+                    <button onClick={()=>{navigate('../snowboard-gear-review-app/profile')}}>プロフィール</button>
                     <br/>
                 </>
             ):(
                 <>
                     <button onClick={signout}>サインアウト</button>
-                    <button onClick={()=>{navigate('snowboard-gear-review-app/profile')}}>プロフィール</button>
+                    <button onClick={()=>{navigate('profile')}}>プロフィール</button>
                     <br/>
                 </>
             )}

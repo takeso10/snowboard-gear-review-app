@@ -33,7 +33,7 @@ export default function NewReview() {
   const [user]=useAuthState(auth)
   const {register, handleSubmit,formState: { errors }}=useForm<Inputs>()
   const [brands, setBrands] = useState<Brand[]>([])
-  const [gearNames,setGearNames] = useState<Brand[]>([])
+  const [gearNames,setGearNames] = useState<string[]>([])
   const [selectedBrand, setSelectedBrand] = useState<string>("BURTON")
   const [selectedCategory, setSelectedCategory]= useState('board')
 
@@ -47,22 +47,37 @@ export default function NewReview() {
           name:doc.data().name
         }])
       })
+      const gearNameList:string[]=[]
+      const gearListDocs = await getDocs(collection(db,"brands","BURTON","board"))
+      gearListDocs.forEach((doc)=>{
+        gearNameList.push(doc.data().name)
+        setGearNames(gearNameList)
+        console.log(doc.data())
+    })
     })()
   },[])
 
-  const onChangeBrand=(e:any)=>{
+  const onChangeBrand= async(e:any)=>{
     setSelectedBrand(e)
+    console.log(e)
+    const gearNameList:string[]=[]
+    const gearListDocs = await getDocs(collection(db,"brands",e,selectedCategory))
+    gearListDocs.forEach((doc)=>{
+      gearNameList.push(doc.data().name)
+      setGearNames(gearNameList)
+      console.log(doc.data())
+    })
   }
 
   const OnChangeCategory=async (e:any)=>{
     setSelectedCategory(e)
     console.log(selectedBrand)
     console.log(selectedCategory)
-    const gearListDocs = await getDocs(collection(db,"brands",selectedBrand,selectedCategory))
+    const gearNameList:string[]=[]
+    const gearListDocs = await getDocs(collection(db,"brands",selectedBrand,e))
     gearListDocs.forEach((doc)=>{
-      setGearNames((gearNames)=>[...gearNames,{
-        name:doc.data().name
-      }])
+      gearNameList.push(doc.data().name)
+      setGearNames(gearNameList)
       console.log(doc.data())
     })
   }
@@ -84,7 +99,7 @@ export default function NewReview() {
       total:data.total
     })
     console.log(data)
-    navigate('snowboard-gear-review-app')
+    navigate('../snowboard-gear-review-app')
   }
 
   return (
@@ -140,12 +155,13 @@ export default function NewReview() {
                             value:true,
                             message:'入力必須の項目です。'
                         }
-                    })}/>
-                    {gearNames.map((gearName:Brand,index)=>{
+                    })}>
+                    {gearNames.map((gearName:string,index)=>{
                       return(
-                        <option key={index} value={gearName.name}>{gearName.name}</option>
+                        <option key={index} value={gearName}>{gearName}</option>
                       )
                     })}
+                </select>
                 <br/>
                 <label htmlFor ="review">コメント</label>
                 <br/>
@@ -215,7 +231,7 @@ export default function NewReview() {
                   <label htmlFor="carving5">★</label>
                   <input id="carving4" type="radio" value="4" {...register("carving")}/>
                   <label htmlFor="carving4">★</label>
-                  <input id="caving3" type="radio" value="3" {...register("carving")}/>
+                  <input id="carving3" type="radio" value="3" {...register("carving")}/>
                   <label htmlFor="carving3">★</label>
                   <input id="carving2" type="radio" value="2" {...register("carving")}/>
                   <label htmlFor="carving2">★</label>
@@ -225,7 +241,7 @@ export default function NewReview() {
                 <label>パウダー</label>
                 <div className="rate-form">
                   <input id="powder5" type="radio" value="5" {...register("powder")}/>
-                  <label htmlFor="powder4">★</label>
+                  <label htmlFor="powder5">★</label>
                   <input id="powder4" type="radio" value="4" {...register("powder")}/>
                   <label htmlFor="powder4">★</label>
                   <input id="powder3" type="radio" value="3" {...register("powder")}/>
@@ -238,7 +254,7 @@ export default function NewReview() {
                 <label>オールマウンテン</label>
                 <div className="rate-form">
                   <input id="allMountain5" type="radio" value="5" {...register("allMountain")}/>
-                  <label htmlFor="allMountain4">★</label>
+                  <label htmlFor="allMountain5">★</label>
                   <input id="allMountain4" type="radio" value="4" {...register("allMountain")}/>
                   <label htmlFor="allMountain4">★</label>
                   <input id="allMountain3" type="radio" value="3" {...register("allMountain")}/>
@@ -266,11 +282,11 @@ export default function NewReview() {
                 <div className="rate-form" >
                   <input id="total5" type="radio" value="5" {...register("total")}/>
                   <label htmlFor="total5">★</label>
-                  <input id="total" type="radio" value="4" {...register("total")}/>
+                  <input id="total4" type="radio" value="4" {...register("total")}/>
                   <label htmlFor="total4">★</label>
                   <input id="total3" type="radio" value="3" {...register("total")}/>
                   <label htmlFor="total3">★</label>
-                  <input id="total" type="radio" value="2" {...register("total")}/>
+                  <input id="total2" type="radio" value="2" {...register("total")}/>
                   <label htmlFor="total2">★</label>
                   <input id="total1" type="radio" value="1" {...register("total")}/>
                   <label htmlFor="total1">★</label>
