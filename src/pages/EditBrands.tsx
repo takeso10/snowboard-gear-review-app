@@ -1,6 +1,6 @@
 import React, { useEffect ,useState} from 'react'
 import { Header } from '../components/Header'
-import { addDoc, collection, doc, getDocs, query, setDoc } from 'firebase/firestore'
+import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -56,7 +56,7 @@ export default function EditBrands() {
       })
       setBindings(bindingList)
 
-      const bootsDocs = await getDocs(collection(db, "brands",e,"binding"))
+      const bootsDocs = await getDocs(collection(db, "brands",e,"boot"))
       const bootsList:string[] = []
       bootsDocs.forEach((doc)=>{
         bootsList.push(doc.data().name)

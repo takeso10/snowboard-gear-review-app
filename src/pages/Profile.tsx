@@ -92,7 +92,7 @@ export const Profile =()=>{
             <h2>ホームゲレンデ</h2>
             <p>{profile!.home}</p>
             <br/>
-            <button onClick={()=>{navigate('snowboard-gear-review-app/newProfile')}}>編集</button>
+            <button onClick={()=>{navigate('../snowboard-gear-review-app/newProfile')}}>編集</button>
         </div>
         ):(
             <button onClick={()=>{navigate('snowboard-gear-review-app/newProfile')}}>新規作成・編集</button>
