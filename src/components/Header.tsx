@@ -28,20 +28,20 @@ export const Header=()=>{
     const signout=()=>{
         auth.signOut()
         console.log(auth)
-        navigate('../snowboard-gear-review-app/signin')
+        navigate('signin')
     }
 
     return(
         <div className="header">
             <div className="header-title">
                 <p>スノーボードギアレビューサイト</p>
-                <h1 onClick={()=>{navigate('../snowboard-gear-review-app')}}>スノギア</h1>
+                <h1 onClick={()=>{navigate('/')}}>スノギア</h1>
             </div>
             {name ? (
                 <div className="header-item">
                     <p>{name} さん</p>
                     <button onClick={signout}>サインアウト</button>
-                    <button onClick={()=>{navigate('../snowboard-gear-review-app/profile')}}>プロフィール</button>
+                    <button onClick={()=>{navigate('profile')}}>プロフィール</button>
                     <br/>
                 </div>
             ):(

@@ -99,7 +99,7 @@ export default function NewReview() {
       total:data.total
     })
     console.log(data)
-    navigate('../snowboard-gear-review-app')
+    navigate('/')
   }
 
   return (
@@ -110,7 +110,7 @@ export default function NewReview() {
         <form className="new-review-form" onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor ="name">ブランド</label>
                 <br/>
-                <button onClick={()=>{navigate('../snowboard-gear-review-app/EditBrands')}}>新規ブランド・ギア追加</button>
+                <button onClick={()=>{navigate('EditBrands')}}>新規ブランド・ギア追加</button>
                 <br/>
                 <select 
                   className="brand-input" 

@@ -153,7 +153,7 @@ export const Home=()=>{
                         </div>
                     </div>
                     <br/>
-                    <button onClick={()=>{navigate('../snowboard-gear-review-app/newReview')}}>新規投稿</button>
+                    <button onClick={()=>{navigate('newReview')}}>新規投稿</button>
                 </div>
                 <div className='reviews'>
                     <h2>レビュー</h2>
@@ -168,7 +168,7 @@ export const Home=()=>{
                                     )}
                                     <p>{review.reviewerName}</p>
                                     */}
-                                    <div className='review-detail' onClick={()=>{navigate(`../snowboard-gear-review-app/reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
+                                    <div className='review-detail' onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
                                         <p>{review.reviewItem.brand}</p>
                                         <p>{review.reviewItem.gearName}</p>
                                         <h2>{review.reviewItem.review}</h2>

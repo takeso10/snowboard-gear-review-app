@@ -78,7 +78,7 @@ export const NewProfile =()=>{
         data.ImageName=ImageName
         console.log(data)
         setDoc(doc(db, "profiles",user!.uid!),data)
-        navigate('snowboard-gear-review-app/profile')
+        navigate('profile')
     }
     
     useEffect(()=>{

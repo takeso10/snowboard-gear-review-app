@@ -19,20 +19,20 @@ export const Router = () =>{
             <Routes>
                 {user ?(
                     <>
-                        <Route path = "snowboard-gear-review-app" element={<Home/>}/>
-                        <Route path ='/snowboard-gear-review-app/profile' element={<Profile/>}/>
-                        <Route path ="/snowboard-gear-review-app/signin" element={<Navigate replace to ="/snowboard-gear-review-app"/>}/>
-                        <Route path ="/snowboard-gear-review-app/newProfile" element={<NewProfile/>}/>
-                        <Route path ="/snowboard-gear-review-app/newReview" element={<NewReview/>}/> 
-                        <Route path ="/snowboard-gear-review-app/reviewDetail/:id" element={<ReviewDetail/>}/> 
-                        <Route path ="/snowboard-gear-review-app/editBrands" element={<EditBrands/>}/>
+                        <Route path = "/" element={<Home/>}/>
+                        <Route path ='profile' element={<Profile/>}/>
+                        <Route path ="signin" element={<Navigate replace to ="/"/>}/>
+                        <Route path ="newProfile" element={<NewProfile/>}/>
+                        <Route path ="newReview" element={<NewReview/>}/> 
+                        <Route path ="reviewDetail/:id" element={<ReviewDetail/>}/> 
+                        <Route path ="editBrands" element={<EditBrands/>}/>
                     </>
                 ):(
                     <>
-                        <Route path = "/snowboard-gear-review-app" element={<Navigate replace to ="/snowboard-gear-review-app/signin"/>}/>
-                        <Route path ='/snowboard-gear-review-app/signin' element={<Signin/>}/>
-                        <Route path ="/snowboard-gear-review-app/profile" element={<Navigate replace to ="/snowboard-gear-review-app/signin"/>}/>
-                        <Route path ='/snowboard-gear-review-app/signup' element={<Signup/>}/>
+                        <Route path = "/" element={<Navigate replace to ="signin"/>}/>
+                        <Route path ='signin' element={<Signin/>}/>
+                        <Route path ="profile" element={<Navigate replace to ="signin"/>}/>
+                        <Route path ='signup' element={<Signup/>}/>
 
                     </>
                 )}

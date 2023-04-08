@@ -40,7 +40,7 @@ export const Profile =()=>{
         const docRef = doc(db, "profiles",user!.uid!)
         getDoc(docRef).then((docSnap)=>{
             if(docSnap.data()===undefined){
-                navigate('snowboard-gear-review-app/newProfile')
+                navigate('newProfile')
             }
             else{
                 setProfile(docSnap.data() as Inputs)
@@ -92,10 +92,10 @@ export const Profile =()=>{
             <h2>ホームゲレンデ</h2>
             <p>{profile!.home}</p>
             <br/>
-            <button onClick={()=>{navigate('../snowboard-gear-review-app/newProfile')}}>編集</button>
+            <button onClick={()=>{navigate('newProfile')}}>編集</button>
         </div>
         ):(
-            <button onClick={()=>{navigate('snowboard-gear-review-app/newProfile')}}>新規作成・編集</button>
+            <button onClick={()=>{navigate('newProfile')}}>新規作成・編集</button>
         )}
 
         
