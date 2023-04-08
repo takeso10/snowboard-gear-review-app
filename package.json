@@ -1,7 +1,7 @@
 {
   "name": "review-app",
   "version": "0.1.0",
-  "homepage": "https://takeso10.github.io/snowboard-gear-review-app/",
+  "homepage": "https://snowboard-gear-review-app.vercel.app/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
