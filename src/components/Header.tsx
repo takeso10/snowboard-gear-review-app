@@ -4,6 +4,7 @@ import { useNavigate} from 'react-router-dom'
 import { useAuthState} from "react-firebase-hooks/auth"
 import {useEffect,useState} from 'react'
 import { getDoc,doc} from "firebase/firestore";
+import './Header.scss'
 
 
 export const Header=()=>{
@@ -27,26 +28,29 @@ export const Header=()=>{
     const signout=()=>{
         auth.signOut()
         console.log(auth)
-        navigate('snowboard-gear-review-app/signin')
+        navigate('../snowboard-gear-review-app/signin')
     }
 
     return(
-        <>
-            <h1 onClick={()=>{navigate('../snowboard-gear-review-app')}}>スノギア</h1>
+        <div className="header">
+            <div className="header-title">
+                <p>スノーボードギアレビューサイト</p>
+                <h1 onClick={()=>{navigate('../snowboard-gear-review-app')}}>スノギア</h1>
+            </div>
             {name ? (
-                <>
-                    <p>{name}さん</p>
+                <div className="header-item">
+                    <p>{name} さん</p>
                     <button onClick={signout}>サインアウト</button>
                     <button onClick={()=>{navigate('../snowboard-gear-review-app/profile')}}>プロフィール</button>
                     <br/>
-                </>
+                </div>
             ):(
-                <>
+                <div className="header-item">
                     <button onClick={signout}>サインアウト</button>
                     <button onClick={()=>{navigate('profile')}}>プロフィール</button>
                     <br/>
-                </>
+                </div>
             )}
-        </>
+        </div>
     )
 }

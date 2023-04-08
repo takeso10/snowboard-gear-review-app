@@ -25,7 +25,7 @@ export const Signin=()=>{
         const auth = getAuth()
         signInWithEmailAndPassword(auth,data.email,data.password)
         .then(()=>{
-            navigate('snowboard-gear-review-app')
+            navigate('../snowboard-gear-review-app')
         })
         .catch((error)=>{
             setErrors(error)

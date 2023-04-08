@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import {useEffect} from 'react'
-import { auth, db } from '../firebase'
+import { auth, db, storage } from '../firebase'
 import { useAuthState} from "react-firebase-hooks/auth"
 import {Header} from '../components/Header'
-import {collection, doc, getCountFromServer, getDoc, getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp } from 'firebase/firestore'
+import {collection, doc, getCountFromServer,getDoc,getDocs, orderBy, query, serverTimestamp, setDoc, Timestamp } from 'firebase/firestore'
 import { useNavigate } from "react-router-dom";
-
+import "./Home.scss"
+import { getDownloadURL, ref } from 'firebase/storage'
 
 type ReviewItem={
     category:string,
@@ -24,11 +25,20 @@ type ReviewItem={
     total:number,
 }
 
+/*type Reviews = {
+    iconURL:string,
+    reviewerName:string,
+    reviewID:string,
+    reviewItem:ReviewItem,
+    LikedUserCount:number
+}*/
+
 type Reviews = {
     reviewID:string,
     reviewItem:ReviewItem,
     LikedUserCount:number
 }
+
 
 type IDList = {
     reviewID:string,
@@ -36,34 +46,22 @@ type IDList = {
     userID:string
 }
 
+type Brand={
+    name:string
+  }
+
 export const Home=()=>{
-    const [user]=useAuthState(auth)
+    const [user]=useAuthState(auth);
     //const [reviews,setReviews] = useState<Review[]>([])
     const [reviews,setReviews] = useState<Reviews[]>([])
     //const [reviewIDList,setReviewIDList] = useState<IDList[]>([])
     const navigate = useNavigate()
+    const [brands, setBrands] = useState<Brand[]>([])
+    const [ImageName,setImageName] = useState<string>()
+    const [reviewerName, setReviewerName]=useState<string>()
+    const [iconURL,setIconURL] = useState<string>()
 
-    /*
-    {useEffect(()=>{
-        (async ()=>{
-        const querySnapshot = await getDocs(query(collection(db, "reviews"),orderBy('day','desc')));
-        querySnapshot.forEach((doc)=>{
-            console.log(doc.id)
-            doc.data().review = doc.id
-            console.log(doc.data().reviewID)
-            setReviewIDList((reviewIDList)=>[...reviewIDList,{
-                reviewID:doc.id,
-                review:doc.data().review,
-                userID:doc.data().userId
-            }])
-            setReviews((reviews)=>[...reviews,doc.data() as Review])
-        })
-        console.log(serverTimestamp())
-        })()
-    },[]
-    )
-    }*/
-
+    
     useEffect(()=>{
         (async ()=>{
             const querySnapshot = await getDocs(query(collection(db, "reviews"),orderBy('day','desc')));
@@ -78,6 +76,43 @@ export const Home=()=>{
             console.log(reviews)
         })()
     },[])
+    
+
+    /*useEffect(()=>{
+        (async ()=>{
+            const querySnapshot = await getDocs(query(collection(db, "reviews"),orderBy('day','desc')));
+            querySnapshot.forEach(async (Snapshot)=>{
+                const LikedUserCount = await getCountFromServer(query(collection(db,'reviews',Snapshot.id,'LikedUserID')))
+                const userID:string = Snapshot.data().userID
+                const docRef = doc(db,"profiles",userID)
+                getDoc(docRef).then((docSnap)=>{
+                    const iconRef = ref(storage, `image/${docSnap.data()!.ImageName}`)
+                    setReviewerName(docSnap.data()!.name)
+                    getDownloadURL(iconRef)
+                    .then((url)=>{
+                        const iconURL = url
+                        setReviews((reviews)=>[...reviews,{
+                            iconURL:iconURL!,
+                            reviewerName:reviewerName!,
+                            reviewID:Snapshot.id,
+                            reviewItem:Snapshot.data() as ReviewItem,
+                            LikedUserCount:LikedUserCount.data().count
+                        }])
+                    })
+                })
+            })
+            console.log(reviews)
+            const b = query(collection(db, "brands"))
+            const brandsSnapshot = await getDocs(b)
+            brandsSnapshot.forEach((doc)=>{
+            console.log(doc.data())
+            setBrands((brands)=>[...brands,{
+                name:doc.data().name
+                }]) 
+            })
+        })()
+    },[])
+    */
 
     const OnGood=async (e:string)=>{
         console.log(e)
@@ -98,16 +133,41 @@ export const Home=()=>{
 
     return(
         <div>
-            <>
-                <Header/>
-                <div className='reviews'>
-                    <div>
-                        
+            <Header/>
+            <main>
+                <div className="review-view">
+                    <div className="review-serch">
+                        <h2>絞り込み</h2>
+                        <div className="search-input">
+                            <h3>ブランド</h3>
+                            {brands.map((brand,index)=>{
+                                return(
+                                    <div className="brand-inputs" key={index}>
+                                        <input id={brand.name} className="brand-input" type="checkbox"></input>
+                                        <label htmlFor={brand.name}>{brand.name}</label>
+                                    </div>
+                                )
+                            })}
+                            <br/>
+                            <button>絞り込む</button>
+                        </div>
                     </div>
-                    <ul className="review-list">
+                    <br/>
+                    <button onClick={()=>{navigate('../snowboard-gear-review-app/newReview')}}>新規投稿</button>
+                </div>
+                <div className='reviews'>
+                    <h2>レビュー</h2>
+                    <div className="review-list">
                         {reviews.map((review:Reviews,index)=>{
                             return(
                                 <div key={index} className='review-item'>
+                                    {/*{review.iconURL?(
+                                        <img src={review.iconURL} className="icon"></img>
+                                    ):(
+                                        <></>
+                                    )}
+                                    <p>{review.reviewerName}</p>
+                                    */}
                                     <div className='review-detail' onClick={()=>{navigate(`../snowboard-gear-review-app/reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
                                         <p>{review.reviewItem.brand}</p>
                                         <p>{review.reviewItem.gearName}</p>
@@ -118,10 +178,9 @@ export const Home=()=>{
                                     <br/>
                                 </div>
                         )})}
-                    </ul>
-                    <button onClick={()=>{navigate('../snowboard-gear-review-app/newReview')}}>新規投稿</button>
+                    </div>
                 </div>
-            </>
+            </main>
         </div>
     )
 }
