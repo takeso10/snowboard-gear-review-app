@@ -40,7 +40,7 @@ export const Profile =()=>{
         const docRef = doc(db, "profiles",user!.uid!)
         getDoc(docRef).then((docSnap)=>{
             if(docSnap.data()===undefined){
-                navigate('newProfile')
+                navigate('../newProfile')
             }
             else{
                 setProfile(docSnap.data() as Inputs)

@@ -25,19 +25,20 @@ type ReviewItem={
     total:number,
 }
 
-/*type Reviews = {
+type Reviews = {
     iconURL:string,
     reviewerName:string,
     reviewID:string,
     reviewItem:ReviewItem,
     LikedUserCount:number
-}*/
+}
 
-type Reviews = {
+/*type Reviews = {
     reviewID:string,
     reviewItem:ReviewItem,
     LikedUserCount:number
 }
+*/
 
 
 type IDList = {
@@ -62,7 +63,7 @@ export const Home=()=>{
     const [iconURL,setIconURL] = useState<string>()
 
     
-    useEffect(()=>{
+    /*useEffect(()=>{
         (async ()=>{
             const querySnapshot = await getDocs(query(collection(db, "reviews"),orderBy('day','desc')));
             querySnapshot.forEach(async (doc)=>{
@@ -76,9 +77,9 @@ export const Home=()=>{
             console.log(reviews)
         })()
     },[])
-    
+    */
 
-    /*useEffect(()=>{
+    useEffect(()=>{
         (async ()=>{
             const querySnapshot = await getDocs(query(collection(db, "reviews"),orderBy('day','desc')));
             querySnapshot.forEach(async (Snapshot)=>{
@@ -90,14 +91,14 @@ export const Home=()=>{
                     setReviewerName(docSnap.data()!.name)
                     getDownloadURL(iconRef)
                     .then((url)=>{
-                        const iconURL = url
                         setReviews((reviews)=>[...reviews,{
-                            iconURL:iconURL!,
-                            reviewerName:reviewerName!,
+                            iconURL:url,
+                            reviewerName:docSnap.data()!.name,
                             reviewID:Snapshot.id,
                             reviewItem:Snapshot.data() as ReviewItem,
                             LikedUserCount:LikedUserCount.data().count
                         }])
+                        setIconURL(url)
                     })
                 })
             })
@@ -112,7 +113,7 @@ export const Home=()=>{
             })
         })()
     },[])
-    */
+    
 
     const OnGood=async (e:string)=>{
         console.log(e)
@@ -124,6 +125,8 @@ export const Home=()=>{
         querySnapshot.forEach(async (doc)=>{
             const LikedUserCount = await getCountFromServer(query(collection(db,'reviews',doc.id,'LikedUserID')))
             setReviews((reviews)=>[...reviews,{
+                iconURL:iconURL!,
+                reviewerName:reviewerName!,
                 reviewID:doc.id,
                 reviewItem:doc.data() as ReviewItem,
                 LikedUserCount:LikedUserCount.data().count
@@ -161,18 +164,22 @@ export const Home=()=>{
                         {reviews.map((review:Reviews,index)=>{
                             return(
                                 <div key={index} className='review-item'>
-                                    {/*{review.iconURL?(
-                                        <img src={review.iconURL} className="icon"></img>
+                                    <div className="icon">
+                                    {review.iconURL?(
+                                        <img src={review.iconURL} className="icon-image"></img>
                                     ):(
                                         <></>
                                     )}
                                     <p>{review.reviewerName}</p>
-                                    */}
+                                    </div>
                                     <div className='review-detail' onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
-                                        <p>{review.reviewItem.brand}</p>
-                                        <p>{review.reviewItem.gearName}</p>
+                                        <p>BRAND：{review.reviewItem.brand}</p>
+                                        <p>NAME：{review.reviewItem.gearName}</p>
                                         <h2>{review.reviewItem.review}</h2>
-                                        <p>★{review.reviewItem.total}</p>
+                                        <div className="star">
+                                            <p className="star-image">★</p>
+                                            <p className="star-count">{review.reviewItem.total}</p>
+                                        </div>
                                     </div>
                                     <button onClick={()=>{OnGood(review.reviewID)}}>❤ {review.LikedUserCount}</button>
                                     <br/>

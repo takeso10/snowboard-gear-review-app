@@ -78,7 +78,7 @@ export const NewProfile =()=>{
         data.ImageName=ImageName
         console.log(data)
         setDoc(doc(db, "profiles",user!.uid!),data)
-        navigate('profile')
+        navigate('../profile')
     }
     
     useEffect(()=>{
