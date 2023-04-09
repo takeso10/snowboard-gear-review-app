@@ -6,6 +6,7 @@ import { useAuthState} from "react-firebase-hooks/auth"
 import { getDoc,doc} from "firebase/firestore";
 import { useNavigate } from 'react-router-dom'
 import { getDownloadURL, ref } from 'firebase/storage'
+import "./Profile.scss"
 
 type Inputs ={
     name:string,
@@ -78,24 +79,26 @@ export const Profile =()=>{
         <br/>
         {profile?(
         <div className="profile">
-            <img src={iconURL}></img>
-            <h1>ユーザー名</h1>
-            <p>{profile!.name}</p>
-            <h2>メールアドレス</h2>
-            <p>{user!.email}</p>
-            <h2>スタイル</h2>
-            <p>{profile!.style}</p>
-            <h2>滑走歴（年）</h2>
-            <p>{profile!.experience}</p>
-            <h2>年間滑走日数</h2>
-            <p>{profile!.days}</p>
-            <h2>ホームゲレンデ</h2>
-            <p>{profile!.home}</p>
-            <br/>
-            <button onClick={()=>{navigate('newProfile')}}>編集</button>
+            <h1>プロフィール</h1>
+            <div>
+                <img className="icon" src={iconURL}></img>
+                <h2>ユーザー名</h2>
+                <p>{profile!.name}</p>
+                <h2>メールアドレス</h2>
+                <p>{user!.email}</p>
+                <h2>スタイル</h2>
+                <p>{profile!.style}</p>
+                <h2>滑走歴（年）</h2>
+                <p>{profile!.experience}年</p>
+                <h2>年間滑走日数</h2>
+                <p>{profile!.days}</p>
+                <h2>ホームゲレンデ</h2>
+                <p>{profile!.home}</p>
+            </div>
+            <button onClick={()=>{navigate('../newProfile')}}>編集</button>
         </div>
         ):(
-            <button onClick={()=>{navigate('newProfile')}}>新規作成・編集</button>
+            <button onClick={()=>{navigate('../newProfile')}}>新規作成・編集</button>
         )}
 
         

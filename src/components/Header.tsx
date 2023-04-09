@@ -28,7 +28,7 @@ export const Header=()=>{
     const signout=()=>{
         auth.signOut()
         console.log(auth)
-        navigate('signin')
+        navigate('../signin')
     }
 
     return(
@@ -41,13 +41,13 @@ export const Header=()=>{
                 <div className="header-item">
                     <p>{name} さん</p>
                     <button onClick={signout}>サインアウト</button>
-                    <button onClick={()=>{navigate('./profile')}}>プロフィール</button>
+                    <button onClick={()=>{navigate('../profile')}}>プロフィール</button>
                     <br/>
                 </div>
             ):(
                 <div className="header-item">
                     <button onClick={signout}>サインアウト</button>
-                    <button onClick={()=>{navigate('profile')}}>プロフィール</button>
+                    <button onClick={()=>{navigate('../profile')}}>プロフィール</button>
                     <br/>
                 </div>
             )}

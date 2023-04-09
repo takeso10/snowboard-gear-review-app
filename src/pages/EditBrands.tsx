@@ -73,7 +73,7 @@ export default function EditBrands() {
     await setDoc(doc(db,"brands",data.brand,data.category,data.gearName),{
       name:data.gearName
     })
-    navigate('newReview')
+    navigate('../newReview')
   }
 
   return (

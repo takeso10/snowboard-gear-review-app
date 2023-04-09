@@ -1,5 +1,6 @@
 main{
     display:flex;
+    background-color:rgb(224, 238, 247);
     .review-view{
         margin-left:50px;
         margin-right:10px;
@@ -34,16 +35,17 @@ main{
             margin-bottom:20px;
             .review-detail{
                 margin:10px;
-                .star{
-                    display:flex;
-                    .star-image{
-                        font-size:30px;
-                        color: #ffcc00;
-                    }
-                    .star-count{
-                        font-size:30px;
-                    }
+                p{
+                    display:inline
                 }
+                .star-image{
+                    font-size:30px;
+                    color: #ffcc00;
+                }
+                .star-count{
+                    font-size:30px;
+                }
+                
             }
             button{
                 margin:10px;

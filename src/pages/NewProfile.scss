@@ -1,0 +1,60 @@
+.new-profile{
+    height:100%;
+    padding:20px 40px 40px 40px;
+    background-color:rgb(224, 238, 247);
+    form{
+        .icon{
+            width: 200px;
+            border-radius: 100px;
+            margin :10px 0px 10px 0px;
+        }
+        p{
+            font-size:large
+        }
+        h1{
+            width:400px;
+            border-bottom: 2px solid rgb(92, 176, 233);
+        }
+        label{
+            font-size:20px;
+            font:bold;
+            width:400px;
+            border-bottom: 2px solid rgb(92, 176, 233);
+        }
+        input{
+            margin-top:10px;
+            margin-bottom:15px;
+            width:300px;
+            border-radius: 5px;
+            height:25px;
+            border: 2px solid black;
+        }
+        .home-input{
+            margin-bottom:20px;
+        }
+        select{
+            margin-bottom:15px;
+            margin-top:10px;
+            width:300px;
+            height:25px;
+            border-radius: 5px;
+            border: 2px solid black;
+        }
+        button {
+            width:100px;
+            color: #000;
+            background-color:white;
+            border-bottom: 4px solid rgb(226, 223, 223);
+            border-radius: 10%;
+            height:40px;
+            font-weight:bold;
+        }
+          
+        button:hover {
+            margin-top: 3px;
+            color: #000;
+            background: white;
+            border-bottom: 2px solid white;
+        }
+    }
+}

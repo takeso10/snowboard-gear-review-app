@@ -173,15 +173,14 @@ export const Home=()=>{
                                     <p>{review.reviewerName}</p>
                                     </div>
                                     <div className='review-detail' onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
-                                        <p>BRAND：{review.reviewItem.brand}</p>
+                                        <p className="">BRAND：{review.reviewItem.brand}</p>
+                                        <br/>
                                         <p>NAME：{review.reviewItem.gearName}</p>
                                         <h2>{review.reviewItem.review}</h2>
-                                        <div className="star">
-                                            <p className="star-image">★</p>
-                                            <p className="star-count">{review.reviewItem.total}</p>
-                                        </div>
+                                        <p className="star-image">★</p>
+                                        <p className="star-count">{review.reviewItem.total}</p>
                                     </div>
-                                    <button onClick={()=>{OnGood(review.reviewID)}}>❤ {review.LikedUserCount}</button>
+                                    <button className="good-button" onClick={()=>{OnGood(review.reviewID)}}>❤ {review.LikedUserCount}</button>
                                     <br/>
                                 </div>
                         )})}

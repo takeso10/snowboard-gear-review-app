@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { storage } from "../firebase"
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage"
 //import { SetprofileSet } from "./Profile";
+import "./NewProfile.scss"
 
 type Inputs ={
     name:string,
@@ -100,9 +101,9 @@ export const NewProfile =()=>{
             <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor = "icon">アイコン</label>
                 <br/>
-                <input type = "file" accept = ".png, .jpeg, .jpg" onChange={UploadImage}></input>
+                <img  className="icon" src={iconURL}></img>
                 <br/>
-                <img src={iconURL}></img>
+                <input type = "file" accept = ".png, .jpeg, .jpg" onChange={UploadImage}></input>
                 <br/>
                 <label htmlFor ="name">ユーザー名</label>
                 <br/>
@@ -115,16 +116,13 @@ export const NewProfile =()=>{
                         required:{
                             value:true,
                             message:'入力必須の項目です。'
-                        }
+                        },
+                        maxLength:{value:20,message:"ユーザー名は20文字以内で入力してください"}
                     })}/>
                 <br/>
-                <label htmlFor="email">メールアドレス</label>
+                <label htmlFor ="style" >スタイル</label>
                 <br/>
-                <p>{user!.email}</p>
-                <br/>
-                <label htmlFor ="style">スタイル</label>
-                <br/>
-                <select {...register("style")} className="style-input" placeholder="style" defaultValue={profile.style}>
+                <select {...register("style")} className="select-input" placeholder="style" defaultValue={profile.style}>
                     <option>パーク</option>
                     <option>パウダー</option>
                     <option>カービング</option>
@@ -143,12 +141,13 @@ export const NewProfile =()=>{
                         required:{
                             value:true,
                             message:'入力必須の項目です。'
-                        }
+                        },
+                        min:0
                 })}/>
                 <br/>
                 <label htmlFor="days">年間滑走日数</label>
                 <br/>
-                <select {...register("days")} className="days-input" placeholder="style" defaultValue={profile.experience}>
+                <select {...register("days")} className="select-input" placeholder="style" defaultValue={profile.experience}>
                     <option>1~10</option>
                     <option>11~21</option>
                     <option>21~30</option>
@@ -170,7 +169,7 @@ export const NewProfile =()=>{
                     })}
                 />
                 <br/>
-            <button type="submit"  className="signup-button">作成・編集</button>
+                <button type="submit"  className="signup-button">作成・編集</button>
             </form>
         </div>
         </>

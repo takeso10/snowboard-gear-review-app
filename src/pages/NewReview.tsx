@@ -108,98 +108,78 @@ export default function NewReview() {
       <div className="new-review">
         <h1>新規レビュー投稿</h1>
         <form className="new-review-form" onSubmit={handleSubmit(onSubmit)}>
-                <label htmlFor ="name">ブランド</label>
-                <br/>
-                <button onClick={()=>{navigate('EditBrands')}}>新規ブランド・ギア追加</button>
-                <br/>
-                <select 
-                  className="brand-input" 
-                  placeholder="brand" 
-                  {...register("brand",{
-                        required:{
-                            value:true,
-                            message:'入力必須の項目です。'
-                        }})}
-                  onChange={(e)=>onChangeBrand(e.target.value)}>
-                    {brands.map((brand:Brand,index)=>{
-                      return(
-                        <option key={index} value={brand.name}>{brand.name}</option>
-                      )
-                    })}
-                </select>
-                <br/>
-                <label htmlFor ="category">カテゴリー</label>
-                <br/>
-                <select 
-                  className="category-input"
-                  placeholder="category"
-                  {...register("category",{
+          <div className="comment-form">
+              <label htmlFor ="name">ブランド</label>
+              <button className="new-gear-button" onClick={()=>{navigate('../EditBrands')}}>新規ブランド・ギア追加</button>
+              <br/>
+              <select 
+                className="brand-input" 
+                placeholder="brand" 
+                {...register("brand",{
+                      required:{
+                        value:true,
+                          message:'入力必須の項目です。'
+                      }})}
+                onChange={(e)=>onChangeBrand(e.target.value)}>
+                  {brands.map((brand:Brand,index)=>{
+                    return(
+                      <option key={index} value={brand.name}>{brand.name}</option>
+                    )
+                  })}
+              </select>
+              <br/>
+              <label htmlFor ="category">カテゴリー</label>
+              <br/>
+              <select 
+                className="category-input"
+                placeholder="category"
+                {...register("category",{
+                  required:{
+                    value:true,
+                    message:'入力必須の項目です。'
+                  }
+                })}
+                onChange={(e)=>OnChangeCategory(e.target.value)}>
+                  <option value="board">ボード</option>
+                  <option value="binding">ビンディング</option>
+                  <option value="boots">ブーツ</option>
+              </select>
+              <br/>
+              <label htmlFor ="gearName">ギア名</label>
+              <br/>
+              <select
+                  placeholder="gearName"
+                  className="gearName-input"
+                  {...register('gearName',{
                     required:{
                       value:true,
                       message:'入力必須の項目です。'
                     }
+                  })}>
+                  {gearNames.map((gearName:string,index)=>{
+                    return(
+                      <option key={index} value={gearName}>{gearName}</option>
+                    )
                   })}
-                  onChange={(e)=>OnChangeCategory(e.target.value)}>
-                    <option value="board">ボード</option>
-                    <option value="binding">ビンディング</option>
-                    <option value="boots">ブーツ</option>
-                </select>
-                <br/>
-                <label htmlFor ="gearName">ギア名</label>
-                <br/>
-                <select
-                    placeholder="gearName"
-                    className="gearName-input"
-                    {...register('gearName',{
-                        required:{
-                            value:true,
-                            message:'入力必須の項目です。'
-                        }
-                    })}>
-                    {gearNames.map((gearName:string,index)=>{
-                      return(
-                        <option key={index} value={gearName}>{gearName}</option>
-                      )
-                    })}
-                </select>
-                <br/>
-                <label htmlFor ="review">コメント</label>
-                <br/>
-                <textarea
-                    placeholder="review"
-                    className="review-input"
-                    {...register('review',{
-                        required:{
-                            value:true,
-                            message:"入力必須の項目です。"
-                        }
-                    })}
-                />
-                <br/>
-                {/*
-                {styleList.map((style)=>{
-                  return(
-                    <>
-                      <label>{style}</label>
-                      <div className="rate-form">
-                        <input id={style+"5"} type="radio" value="5" {...register(style)}/>
-                        <label htmlFor={style+"5"}>★</label>
-                        <input id={style+"4"} type="radio" value="4" {...register("park")}/>
-                        <label htmlFor={style+"4"}>★</label>
-                        <input id={style+"3"} type="radio" value="3" {...register("park")}/>
-                        <label htmlFor={style+"3"}>★</label>
-                        <input id={style+"2"} type="radio" value="2" {...register("park")}/>
-                        <label htmlFor={style+"2"}>★</label>
-                        <input id={style+"1"} type="radio" value="1" {...register("park")}/>
-                        <label htmlFor={style+"1"}>★</label>
-                      </div>
-                    </>
-                  )}
-                )}
-                  */}
+              </select>
+              <br/>
+              <label htmlFor ="review">コメント</label>
+              <br/>
+              <textarea
+                  placeholder="review"
+                  className="review-input"
+                  {...register('review',{
+                    required:{
+                      value:true,
+                      message:"入力必須の項目です。"
+                      }
+                  })}
+              />
+              <br/>
+          </div>
                 <h2>スタイル別評価</h2>
                 <div>
-                <label>パーク</label>
+                <label className="category-label">パーク</label>
                 <div className="rate-form" >
                   <input id="park5" type="radio" value="5" {...register("park")}/>
                   <label htmlFor="park5">★</label>
@@ -212,7 +192,7 @@ export default function NewReview() {
                   <input id="park1" type="radio" value="1" {...register("park")}/>
                   <label htmlFor="park1">★</label>
                 </div>
-                <label>グラトリ</label>
+                <label className="category-label">グラトリ</label>
                 <div className="rate-form" >
                   <input id="gt5" type="radio" value="5" {...register("gt")}/>
                   <label htmlFor="gt5">★</label>
@@ -225,7 +205,7 @@ export default function NewReview() {
                   <input id="gt1" type="radio" value="1" {...register("gt")}/>
                   <label htmlFor="gt1">★</label>
                 </div>
-                <label>カービング</label>
+                <label className="category-label">カービング</label>
                 <div className="rate-form">
                   <input id="carving5" type="radio" value="5" {...register("carving")}/>
                   <label htmlFor="carving5">★</label>
@@ -238,7 +218,7 @@ export default function NewReview() {
                   <input id="carving1" type="radio" value="1" {...register("carving")}/>
                   <label htmlFor="carving1">★</label>
                 </div>
-                <label>パウダー</label>
+                <label className="category-label">パウダー</label>
                 <div className="rate-form">
                   <input id="powder5" type="radio" value="5" {...register("powder")}/>
                   <label htmlFor="powder5">★</label>
@@ -251,7 +231,7 @@ export default function NewReview() {
                   <input id="powder1" type="radio" value="2" {...register("powder")}/>
                   <label htmlFor="powder1">★</label>
                 </div>
-                <label>オールマウンテン</label>
+                <label className="category-label">オールマウンテン</label>
                 <div className="rate-form">
                   <input id="allMountain5" type="radio" value="5" {...register("allMountain")}/>
                   <label htmlFor="allMountain5">★</label>
@@ -264,7 +244,7 @@ export default function NewReview() {
                   <input id="allMountain1" type="radio" value="1" {...register("allMountain")}/>
                   <label htmlFor="allMountain1">★</label>
                 </div>
-                <label>フレックス</label>
+                <label className="category-label">フレックス</label>
                 <div className="rate-form" >
                   <input id="flex5" type="radio" value="5" {...register("flex")}/>
                   <label htmlFor="flex5">★</label>
@@ -278,7 +258,7 @@ export default function NewReview() {
                   <label htmlFor="flex1">★</label>
                 </div>
                 </div>
-                <label>トータル</label>
+                <label className="category-label">総合評価</label>
                 <div className="rate-form" >
                   <input id="total5" type="radio" value="5" {...register("total")}/>
                   <label htmlFor="total5">★</label>
@@ -291,8 +271,8 @@ export default function NewReview() {
                   <input id="total1" type="radio" value="1" {...register("total")}/>
                   <label htmlFor="total1">★</label>
                 </div>
-            <button type="submit" className="signup-button">作成</button>
-            </form>
+            <button type="submit" className="add-button">作成</button>
+          </form>
       </div>      
     </>
   )
