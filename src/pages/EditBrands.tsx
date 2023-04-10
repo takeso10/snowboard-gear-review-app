@@ -4,6 +4,7 @@ import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import "./EditBrands.scss"
 
 type Brand={
   name:string
@@ -79,7 +80,8 @@ export default function EditBrands() {
   return (
     <>
       <Header/>
-      <div className="main">
+      <div className="new-gear">
+        <h1>ブランド・ギア</h1>
         <form className="create-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="brand-form">
             <label htmlFor="brand">ブランド</label>

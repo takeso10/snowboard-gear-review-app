@@ -156,7 +156,7 @@ export const Home=()=>{
                         </div>
                     </div>
                     <br/>
-                    <button onClick={()=>{navigate('newReview')}}>新規投稿</button>
+                    <button onClick={()=>{navigate('../newReview')}}>新規投稿</button>
                 </div>
                 <div className='reviews'>
                     <h2>レビュー</h2>

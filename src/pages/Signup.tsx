@@ -5,6 +5,7 @@ import {useForm,SubmitHandler} from 'react-hook-form';
 import { signInWithPopup } from "firebase/auth";
 import {auth, provider } from "../firebase";
 import {createUserWithEmailAndPassword,getAuth } from "firebase/auth";
+import "./Signup.scss"
 
 type Inputs ={
     email:string,
@@ -30,34 +31,38 @@ export const Signup=()=>{
 
     const signUpWithGoogle = ()=>{
         signInWithPopup(auth, provider)
-        console.log(provider)
-        console.log(auth)
     }
 
     return(
         <>
-            <h1>ユーザー登録</h1>    
-            <form onClick={handleSubmit(onSubmit)}>
-                <label htmlFor='email'>メールアドレス</label>
-                <br />
-                <input
-                    type="email"
-                    placeholder="email"
-                    className="email-input" 
-                    {...register('email',{
-                        required:{
-                            value:true,
-                            message:'入力が必須の項目です。',
-                        }
-                })}/>
-                {errors.email && <div>入力が必須の項目です</div>}
-                <br />
-                <label htmlFor='password'>パスワード</label>
+            <div className="header">
+                <div className="header-title">
+                    <p>スノーボードギアレビューサイト</p>
+                    <h1>スノギア</h1>
+                </div>
+            </div>
+            <div className="signup">
+                <h1>ユーザー登録</h1>    
+                <form  className="signup-form" onClick={handleSubmit(onSubmit)}>
+                    <label htmlFor='email'>メールアドレス</label>
+                    <br />
+                    <input
+                        type="email"
+                        placeholder="email"
+                        className="email-input" 
+                        {...register('email',{
+                            required:{
+                                value:true,
+                                message:'入力が必須の項目です。',
+                            }
+                    })}/>
+                    {errors.email && <div>入力が必須の項目です</div>}
+                    <br />
+                    <label htmlFor='password'>パスワード</label>
                     <br />
                     <input
                         type="password"
                         placeholder="password"
-                        
                         className="password-input" 
                         {...register('password',{
                             required:{
@@ -68,20 +73,16 @@ export const Signup=()=>{
                                 value:8,
                                 message:'8文字以上入力してください。'
                             }
-
-                        })}/>
-                        {errors.password && <div>入力が必須の項目です</div>}
+                    })}/>
+                    {errors.password && <div>入力が必須の項目です</div>}
                     <br />
                     <button type="submit"  className="signup-button">作成</button>
-            </form>
-            <p>{error}</p>
-            <button onClick={signUpWithGoogle}>
-                <p>Googleでサインアップ</p>
-            </button>
-            <br/>
-            <button onClick={()=>{navigate('signin')}}>
-            <p>ログイン</p>
-            </button>
+                </form>
+                <p>{error}</p>
+                <button onClick={signUpWithGoogle}>Googleでサインアップ</button>
+                <br/>
+                <button onClick={()=>{navigate('../signin')}}>ログイン</button>
+            </div>
         </>
     )
 }

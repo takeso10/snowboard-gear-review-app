@@ -5,6 +5,7 @@ import {useForm ,SubmitHandler} from 'react-hook-form';
 import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword ,getAuth} from "firebase/auth";
 import { useState } from "react";
+import "./Signin.scss"
 
 type Inputs ={
     email:string,
@@ -34,8 +35,15 @@ export const Signin=()=>{
 
     return(
         <>
-            <h1>サインイン</h1>    
-            <form onClick={handleSubmit(onSubmit)}>
+        <div className="header">
+            <div className="header-title">
+                <p>スノーボードギアレビューサイト</p>
+                <h1>スノギア</h1>
+            </div>
+        </div>
+        <div className="signin">
+            <h1>サインイン</h1>
+            <form  className="signin-form" onClick={handleSubmit(onSubmit)}>
                 <label htmlFor='email'>メールアドレス</label>
                 <br />
                 <input
@@ -73,13 +81,10 @@ export const Signin=()=>{
                     <button type="submit"  className="signup-button">サインイン</button>
             </form>
             {/*<p>{error}</p>*/}
-            <button onClick={signInWithGoogle}>
-                <p>Googleでサインイン</p>
-            </button>
-            <br></br>
-            <button  onClick={()=>{navigate('signup')}}>
-                <p>新規登録の方はこちらから</p>
-            </button>
+            <button onClick={signInWithGoogle}>Googleでサインイン</button>
+            <br/>
+            <button  onClick={()=>{navigate('../signup')}}>新規登録の方はこちらから</button>
+        </div>
         </>
         
     )

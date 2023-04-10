@@ -1,0 +1,80 @@
+body{
+    background-color:rgb(224, 238, 247);
+}
+.header{
+    background-color:dodgerblue;
+    width:100%;
+    color:white;
+    display:flex;
+    height:120px;
+    margin :auto auto 0px auto;
+    .header-title{
+        margin:auto auto auto 30px;
+        .header-title h1{
+            margin:0px auto 0px auto;
+        }
+        .header-title p{
+            color:black;
+            margin-bottom:0px;
+        }
+    }
+}
+
+.signin{
+    height:100%;
+    padding:20px 40px 40px 40px;
+
+    h1{
+        width:400px;
+          border-bottom: 2px solid rgb(92, 176, 233);
+    }
+    .signin-form{
+        label{
+            font-size:20px;
+            font:bold;
+            width:400px;
+            border-bottom: 2px solid rgb(92, 176, 233);
+        }
+        input{
+            margin-top:10px;
+            margin-bottom:15px;
+            width:300px;
+            border-radius: 5px;
+            height:25px;
+            border: 2px solid black;
+        }
+        button {
+            width:100px;
+            color: #000;
+            background-color:white;
+            border-bottom: 4px solid rgb(226, 223, 223);
+            border-radius: 10%;
+            height:40px;
+            font-weight:bold;
+        }
+          
+        button:hover {
+            margin-top: 3px;
+            color: #000;
+            background: white;
+            border-bottom: 2px solid white;
+        }
+    }
+    button {
+        margin-bottom:20px;
+        width:200px;
+        color: #000;
+        background-color:white;
+        border-bottom: 4px solid rgb(226, 223, 223);
+        border-radius: 10%;
+        height:40px;
+        font-weight:bold;
+    }
+      
+    button:hover {
+        margin-top: 3px;
+        color: #000;
+        background: white;
+        border-bottom: 2px solid white;
+    }
+}
