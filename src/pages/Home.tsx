@@ -172,7 +172,7 @@ export const Home=()=>{
                                     )}
                                     <p>{review.reviewerName}</p>
                                     </div>
-                                    <div className='review-detail' onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
+                                    <div className='review-overview' onClick={()=>{navigate(`reviewDetail/${review.reviewID}`,{state:{reviewID:review.reviewID}})}} >
                                         <p className="">BRAND：{review.reviewItem.brand}</p>
                                         <br/>
                                         <p>NAME：{review.reviewItem.gearName}</p>
