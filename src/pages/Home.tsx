@@ -48,7 +48,8 @@ type IDList = {
 }
 
 type Brand={
-    name:string
+    name:string,
+    checked:boolean
   }
 
 export const Home=()=>{
@@ -61,23 +62,7 @@ export const Home=()=>{
     const [ImageName,setImageName] = useState<string>()
     const [reviewerName, setReviewerName]=useState<string>()
     const [iconURL,setIconURL] = useState<string>()
-
-    
-    /*useEffect(()=>{
-        (async ()=>{
-            const querySnapshot = await getDocs(query(collection(db, "reviews"),orderBy('day','desc')));
-            querySnapshot.forEach(async (doc)=>{
-                const LikedUserCount = await getCountFromServer(query(collection(db,'reviews',doc.id,'LikedUserID')))
-                setReviews((reviews)=>[...reviews,{
-                    reviewID:doc.id,
-                    reviewItem:doc.data() as ReviewItem,
-                    LikedUserCount:LikedUserCount.data().count
-                }])
-            })
-            console.log(reviews)
-        })()
-    },[])
-    */
+    const [selectedBrands,setSelectedBrands]=useState<string[]>([])
 
     useEffect(()=>{
         (async ()=>{
@@ -102,21 +87,28 @@ export const Home=()=>{
                     })
                 })
             })
-            console.log(reviews)
             const b = query(collection(db, "brands"))
             const brandsSnapshot = await getDocs(b)
+            const list: any[]=[]
             brandsSnapshot.forEach((doc)=>{
-            console.log(doc.data())
-            setBrands((brands)=>[...brands,{
-                name:doc.data().name
-                }]) 
+                list.push(doc.data().name)
+                console.log(doc.data().name)
+                setBrands((brands)=>[...brands,{
+                    name:doc.data().name,
+                    checked:true
+                }])
             })
+            setSelectedBrands(list as string[])
         })()
     },[])
     
 
     const OnGood=async (e:string)=>{
         console.log(e)
+        setDoc(doc(db,"profiles",user!.uid,"LikedReview",e),{
+            LikedReview:e,
+            createTime:serverTimestamp()
+        })
         setDoc(doc(db,'reviews',e,'LikedUserID',user!.uid),{
             LikedUser:user!.uid,
             createTime:serverTimestamp()
@@ -134,6 +126,21 @@ export const Home=()=>{
         })
     }
 
+    const onChangeBrand=(e:any)=>{
+        e.target.checked?(
+            setSelectedBrands([...selectedBrands,e.target.value])
+        ):(
+            setSelectedBrands(selectedBrands.filter((brand)=>brand.match(e.target.value)===null))
+        )
+    }
+
+    
+    console.log(brands)
+    console.log(selectedBrands)
+    let newReviews=reviews.filter((data:Reviews)=>selectedBrands.includes(data.reviewItem.brand))
+    
+
+
     return(
         <div>
             <Header/>
@@ -146,22 +153,24 @@ export const Home=()=>{
                             {brands.map((brand,index)=>{
                                 return(
                                     <div className="brand-inputs" key={index}>
-                                        <input id={brand.name} className="brand-input" type="checkbox"></input>
+                                        <input id={brand.name} className="brand-input" value={brand.name} type="checkbox" onChange={onChangeBrand} defaultChecked></input>
                                         <label htmlFor={brand.name}>{brand.name}</label>
                                     </div>
                                 )
                             })}
-                            <br/>
-                            <button>絞り込む</button>
                         </div>
                     </div>
                     <br/>
                     <button onClick={()=>{navigate('../newReview')}}>新規投稿</button>
+                    <br/>
+                    <button onClick={()=>{navigate('../favoriteReviews')}}>お気に入りレビュー一覧</button>
                 </div>
                 <div className='reviews'>
-                    <h2>レビュー</h2>
+                    <div className="reviews-title">
+                        <h2>レビュー</h2>
+                    </div>
                     <div className="review-list">
-                        {reviews.map((review:Reviews,index)=>{
+                        {newReviews.map((review:Reviews,index)=>{
                             return(
                                 <div key={index} className='review-item'>
                                     <div className="icon">

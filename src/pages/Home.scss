@@ -11,13 +11,14 @@ main{
            
         }
         button {
-            width:100px;
+            width:200px;
             color: #000;
             background-color:white;
             border-bottom: 4px solid rgb(226, 223, 223);
             border-radius: 10%;
             height:40px;
             font-weight:bold;
+            margin-bottom:15px;
         }
           
         button:hover {
