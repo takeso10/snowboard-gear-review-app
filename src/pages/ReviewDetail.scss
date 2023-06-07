@@ -1,71 +1,72 @@
-.review-detail{
-    padding:20px 30px 50px 30px;
-    h1{
-        border-bottom: 2px solid rgb(92, 176, 233);
-    }
-    h2,h3{
-        width:300px;
-        border-bottom: 2px solid rgb(92, 176, 233);
-    }
-    .review{
-        font-size:30px;
-    }
-    p{
-        font-size:20px;
-    }
-    .rate {
-        position: relative;
-    
-        width: 150px; //星5個の幅
-        height: 30px; //星1個の幅
-        font-size: 30px;
-        &::before,
-        &::after {
-        position: absolute;
-        display: inline-block;
-        height: 30px;
-        content: '★★★★★';
-        line-height: 30px;
-        }
-        
-        &::before {
-        color: #c4c4c4; //背景の星、色はグレー
-        }
-        
-        &::after {
-        overflow: hidden; //星3.5個の幅、3.5 * 30px
-        color: #ffb906; //評価の星、色はゴールド
-        }
-        }
-        
-        .rate-wrap {
-        display: flex;
-        width: 400px;
-        align-items: center;
-        justify-content: space-between;
-        padding: 5px;
-        font-weight: bold;
-        }
+.review-detail {
+  padding: 20px 30px 50px 30px;
+  h1 {
+    border-bottom: 2px solid rgb(92, 176, 233);
+  }
+  h2,
+  h3 {
+    width: 300px;
+    border-bottom: 2px solid rgb(92, 176, 233);
+  }
+  .review {
+    font-size: 30px;
+  }
+  p {
+    font-size: 20px;
+  }
+  .rate {
+    position: relative;
 
-        .park::after{
-            width: calc(var(--park)*30px);
-        }
-        .gt::after{
-            width: calc(var(--gt)*30px);
-        }
-        .powder::after{
-            width: calc(var(--powder)*30px);
-        }
-        .carving::after{
-            width: calc(var(--carving)*30px);
-        }
-        .allMountain::after{
-            width: calc(var(--allMountain)*30px);
-        }
-        .flex::after{
-            width: calc(var(--flex)*30px);
-        }
-        .total::after{
-            width: calc(var(--total)*30px);
-        }
+    width: 150px; //星5個の幅
+    height: 30px; //星1個の幅
+    font-size: 30px;
+    &::before,
+    &::after {
+      position: absolute;
+      display: inline-block;
+      height: 30px;
+      content: '★★★★★';
+      line-height: 30px;
+    }
+
+    &::before {
+      color: #c4c4c4; //背景の星、色はグレー
+    }
+
+    &::after {
+      overflow: hidden; //星3.5個の幅、3.5 * 30px
+      color: #ffb906; //評価の星、色はゴールド
+    }
+  }
+
+  .rate-wrap {
+    display: flex;
+    width: 400px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    font-weight: bold;
+  }
+
+  .park::after {
+    width: calc(var(--park) * 30px);
+  }
+  .gt::after {
+    width: calc(var(--gt) * 30px);
+  }
+  .powder::after {
+    width: calc(var(--powder) * 30px);
+  }
+  .carving::after {
+    width: calc(var(--carving) * 30px);
+  }
+  .allMountain::after {
+    width: calc(var(--allMountain) * 30px);
+  }
+  .flex::after {
+    width: calc(var(--flex) * 30px);
+  }
+  .total::after {
+    width: calc(var(--total) * 30px);
+  }
 }

@@ -1,35 +1,35 @@
-.profile{
-    padding:20px 40px 40px 40px;
-    background-color:rgb(224, 238, 247);
-    .icon{
-        width: 200px;
-        border-radius: 100px;
-    }
-    p{
-        font-size:large
-    }
-    h1{
-        width:400px;
-        border-bottom: 2px solid rgb(92, 176, 233);
-    }
-    h2{
-        width:400px;
-        border-bottom: 2px solid rgb(92, 176, 233);
-    }
-    button {
-        width:100px;
-        color: #000;
-        background-color:white;
-        border-bottom: 4px solid rgb(226, 223, 223);
-        border-radius: 10%;
-        height:40px;
-        font-weight:bold;
-    }
-      
-    button:hover {
-        margin-top: 3px;
-        color: #000;
-        background: white;
-        border-bottom: 2px solid white;
-    }
+.profile {
+  padding: 20px 40px 40px 40px;
+  background-color: rgb(224, 238, 247);
+  .icon {
+    width: 200px;
+    border-radius: 100px;
+  }
+  p {
+    font-size: large;
+  }
+  h1 {
+    width: 400px;
+    border-bottom: 2px solid rgb(92, 176, 233);
+  }
+  h2 {
+    width: 400px;
+    border-bottom: 2px solid rgb(92, 176, 233);
+  }
+  button {
+    width: 100px;
+    color: #000;
+    background-color: white;
+    border-bottom: 4px solid rgb(226, 223, 223);
+    border-radius: 10%;
+    height: 40px;
+    font-weight: bold;
+  }
+
+  button:hover {
+    margin-top: 3px;
+    color: #000;
+    background: white;
+    border-bottom: 2px solid white;
+  }
 }

@@ -1,90 +1,90 @@
-.new-gear{
-    height:100%;
-    padding:20px 40px 40px 40px;
-    background-color:rgb(224, 238, 247);
-    h1{
-        width:400px;
-        border-bottom: 2px solid rgb(92, 176, 233);
+.new-gear {
+  height: 100%;
+  padding: 20px 40px 40px 40px;
+  background-color: rgb(224, 238, 247);
+  h1 {
+    width: 400px;
+    border-bottom: 2px solid rgb(92, 176, 233);
+  }
+  .create-form {
+    label {
+      font-size: 20px;
+      font: bold;
+      width: 400px;
+      border-bottom: 2px solid rgb(92, 176, 233);
     }
-    .create-form{
-        label{
-            font-size:20px;
-            font:bold;
-            width:400px;
-            border-bottom: 2px solid rgb(92, 176, 233);
-        }
-        input{
-            margin-top:10px;
-            margin-bottom:15px;
-            width:300px;
-            border-radius: 5px;
-            height:25px;
-            border: 2px solid black;
-        }
-        
-        select{
-            margin-bottom:15px;
-            margin-top:10px;
-            width:300px;
-            height:25px;
-            border-radius: 5px;
-            border: 2px solid black;
-        }
-        textarea{
-            width:500px;
-            height:200px;
-            border-radius: 5px;
-            border: 2px solid black;
-            font-size:20px;
-            margin-top:10px;
-        }
-        .category-label{
-          border-bottom: 2px solid rgb(92, 176, 233);
-          font-size:20px;
-          font:bold;
-        }
-        .add-button{
-          width:150px;
-          font-size:20px;
-        }
-        button {
-            color: #000;
-            background-color:white;
-            border-bottom: 4px solid rgb(226, 223, 223);
-            border-radius: 10%;
-            height:40px;
-            font-weight:bold;
-        }
-          
-        button:hover {
-            margin-top: 3px;
-            color: #000;
-            background: white;
-            border-bottom: 2px solid white;
-        }
+    input {
+      margin-top: 10px;
+      margin-bottom: 15px;
+      width: 300px;
+      border-radius: 5px;
+      height: 25px;
+      border: 2px solid black;
     }
-    .brandList{
-        padding-left:0px;
-        h2{
-            width:300px;
-            border-bottom: 2px solid rgb(92, 176, 233);
-        }
-        li{
-            list-style:none;
-        }
+
+    select {
+      margin-bottom: 15px;
+      margin-top: 10px;
+      width: 300px;
+      height: 25px;
+      border-radius: 5px;
+      border: 2px solid black;
     }
-    .gearList{
-        padding-left:0px;
-        h2{
-            width:300px;
-            border-bottom: 2px solid rgb(92, 176, 233);
-        }
-        h3{
-            width:150px;
-            border-bottom: 2px solid rgb(92, 176, 233);
-        }
-        li{
-            list-style:none;
-        }
+    textarea {
+      width: 500px;
+      height: 200px;
+      border-radius: 5px;
+      border: 2px solid black;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+    .category-label {
+      border-bottom: 2px solid rgb(92, 176, 233);
+      font-size: 20px;
+      font: bold;
+    }
+    .add-button {
+      width: 150px;
+      font-size: 20px;
+    }
+    button {
+      color: #000;
+      background-color: white;
+      border-bottom: 4px solid rgb(226, 223, 223);
+      border-radius: 10%;
+      height: 40px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      margin-top: 3px;
+      color: #000;
+      background: white;
+      border-bottom: 2px solid white;
     }
   }
+  .brandList {
+    padding-left: 0px;
+    h2 {
+      width: 300px;
+      border-bottom: 2px solid rgb(92, 176, 233);
+    }
+    li {
+      list-style: none;
+    }
+  }
+  .gearList {
+    padding-left: 0px;
+    h2 {
+      width: 300px;
+      border-bottom: 2px solid rgb(92, 176, 233);
+    }
+    h3 {
+      width: 150px;
+      border-bottom: 2px solid rgb(92, 176, 233);
+    }
+    li {
+      list-style: none;
+    }
+  }
+}

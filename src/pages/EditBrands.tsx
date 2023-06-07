@@ -1,65 +1,72 @@
-import React, { useEffect ,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header } from '../components/Header'
 import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import "./EditBrands.scss"
+import './EditBrands.scss'
 
-type Brand={
-  name:string
+type Brand = {
+  name: string
 }
 
-type Inputs={
-  brand:string,
-  category:string,
-  gearName:string
+type Inputs = {
+  brand: string
+  category: string
+  gearName: string
 }
 
 export default function EditBrands() {
-  const navigate = useNavigate() 
+  const navigate = useNavigate()
   const [brands, setBrands] = useState<Brand[]>([])
-  const [selectedBrand, setSelectedBrand]=useState<string>("BURTON")
+  const [selectedBrand, setSelectedBrand] = useState<string>('BURTON')
   const [boards, setBoards] = useState<string[]>([])
   const [bindings, setBindings] = useState<string[]>([])
   const [boots, setBoots] = useState<string[]>([])
-  const {register, handleSubmit,formState: { errors }}=useForm<Inputs>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>()
 
-  useEffect(()=>{
-    (async()=>{
-      const q = query(collection(db, "brands"))
+  useEffect(() => {
+    (async () => {
+      const q = query(collection(db, 'brands'))
       const querySnapshot = await getDocs(q)
-      querySnapshot.forEach((doc)=>{
+      querySnapshot.forEach((doc) => {
         console.log(doc.data())
-        setBrands((brands)=>[...brands,{
-          name:doc.data().name
-        }])
+        setBrands((brands) => [
+          ...brands,
+          {
+            name: doc.data().name,
+          },
+        ])
       })
     })()
-  },[])
+  }, [])
 
-  const handleBrand=(e:string)=>{
-    (async()=>{
-      setSelectedBrand(e);
-      const boardDocs = await getDocs(collection(db, "brands",e,"board"))
-      const boardList:string[] = []
-      boardDocs.forEach((doc)=>{
+  const handleBrand = (e: string) => {
+    (async () => {
+      setSelectedBrand(e)
+      const boardDocs = await getDocs(collection(db, 'brands', e, 'board'))
+      const boardList: string[] = []
+      boardDocs.forEach((doc) => {
         boardList.push(doc.data().name)
         console.log(doc.data())
       })
       setBoards(boardList)
 
-      const bindingDocs = await getDocs(collection(db, "brands",e,"binding"))
-      const bindingList:string[] = []
-      bindingDocs.forEach((doc)=>{
+      const bindingDocs = await getDocs(collection(db, 'brands', e, 'binding'))
+      const bindingList: string[] = []
+      bindingDocs.forEach((doc) => {
         bindingList.push(doc.data().name)
         console.log(doc.data())
       })
       setBindings(bindingList)
 
-      const bootsDocs = await getDocs(collection(db, "brands",e,"boot"))
-      const bootsList:string[] = []
-      bootsDocs.forEach((doc)=>{
+      const bootsDocs = await getDocs(collection(db, 'brands', e, 'boot'))
+      const bootsList: string[] = []
+      bootsDocs.forEach((doc) => {
         bootsList.push(doc.data().name)
         console.log(doc.data())
       })
@@ -67,48 +74,48 @@ export default function EditBrands() {
     })()
   }
 
-  const onSubmit:SubmitHandler<Inputs>=async (data:Inputs)=>{
-    await setDoc(doc(db,"brands",data.brand!),{
-      name:data.brand
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+    await setDoc(doc(db, 'brands', data.brand!), {
+      name: data.brand,
     })
-    await setDoc(doc(db,"brands",data.brand,data.category,data.gearName),{
-      name:data.gearName
+    await setDoc(doc(db, 'brands', data.brand, data.category, data.gearName), {
+      name: data.gearName,
     })
     navigate('../newReview')
   }
 
   return (
     <>
-      <Header/>
+      <Header />
       <div className="new-gear">
         <h1>ブランド・ギア</h1>
         <form className="create-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="brand-form">
             <label htmlFor="brand">ブランド</label>
-            <br/>
+            <br />
             <input
               placeholder="brand"
               className="brand-input"
               defaultValue={selectedBrand}
-              {...register("brand",{
-                required:{
-                  value:true,
-                  message:"入力必須の項目です。"
-                }
-              })}  
+              {...register('brand', {
+                required: {
+                  value: true,
+                  message: '入力必須の項目です。',
+                },
+              })}
             ></input>
           </div>
           <div className="category-form">
             <label htmlFor="category">カテゴリー</label>
-            <br/>
+            <br />
             <select
               placeholder="category"
               className="category-inputs"
-              {...register("category",{
-                required:{
-                  value:true,
-                  message:"入力必須の項目です。"
-                }
+              {...register('category', {
+                required: {
+                  value: true,
+                  message: '入力必須の項目です。',
+                },
               })}
             >
               <option value="board">ボード</option>
@@ -118,26 +125,30 @@ export default function EditBrands() {
           </div>
           <div className="gear-form">
             <label htmlFor="gearName">ギア名</label>
-            <br/>
+            <br />
             <input
               placeholder="gearName"
               className="gearName-inputs"
-              {...register("gearName",{
-                required:{
-                  value:true,
-                  message:"入力必須な項目です。"
-                }
+              {...register('gearName', {
+                required: {
+                  value: true,
+                  message: '入力必須な項目です。',
+                },
               })}
             ></input>
           </div>
-          <br/>
-          <button type='submit' className="add-button">追加</button>
+          <br />
+          <button type="submit" className="add-button">
+            追加
+          </button>
         </form>
         <ul className="brandList">
           <h2>掲載ブランド</h2>
-          {brands.map((brand:Brand,index)=>{
-            return(
-              <li onClick={()=>handleBrand(brand.name)} key={index} value={brand.name}>{brand.name}</li>
+          {brands.map((brand: Brand, index) => {
+            return (
+              <li onClick={() => handleBrand(brand.name)} key={index} value={brand.name}>
+                {brand.name}
+              </li>
             )
           })}
         </ul>
@@ -145,26 +156,20 @@ export default function EditBrands() {
           <h2>掲載ギア</h2>
           <div className="boardList">
             <h3>ボード</h3>
-            {boards.map((board:string,index)=>{
-              return(
-                <li key={index}>{board}</li>
-              )
+            {boards.map((board: string, index) => {
+              return <li key={index}>{board}</li>
             })}
           </div>
           <div className="bindingList">
             <h3>ビンディング</h3>
-            {bindings.map((binding:string,index)=>{
-              return(
-                <li key={index}>{binding}</li>
-              )
+            {bindings.map((binding: string, index) => {
+              return <li key={index}>{binding}</li>
             })}
           </div>
           <div className="bootsList">
             <h3>ブーツ</h3>
-            {boots.map((boot:string,index)=>{
-              return(
-                <li key={index}>{boot}</li>
-              )
+            {boots.map((boot: string, index) => {
+              return <li key={index}>{boot}</li>
             })}
           </div>
         </ul>

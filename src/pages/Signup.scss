@@ -1,113 +1,113 @@
-body{
-    background-color:rgb(224, 238, 247);
+body {
+  background-color: rgb(224, 238, 247);
 }
-.header{
-    background-color:dodgerblue;
-    width:100%;
-    color:white;
-    display:flex;
-    height:120px;
-    margin :auto auto 0px auto;
-    .header-title{
-        margin:auto auto auto 30px;
-        .header-title h1{
-            margin:0px auto 0px auto;
-        }
-        .header-title p{
-            color:black;
-            margin-bottom:0px;
-        }
+.header {
+  background-color: dodgerblue;
+  width: 100%;
+  color: white;
+  display: flex;
+  height: 120px;
+  margin: auto auto 0px auto;
+  .header-title {
+    margin: auto auto auto 30px;
+    .header-title h1 {
+      margin: 0px auto 0px auto;
     }
+    .header-title p {
+      color: black;
+      margin-bottom: 0px;
+    }
+  }
 }
 
-.signup{
-    height:100%;
-    padding:20px 40px 40px 40px;
+.signup {
+  height: 100%;
+  padding: 20px 40px 40px 40px;
 
-    h1{
-        width:400px;
-          border-bottom: 2px solid rgb(92, 176, 233);
+  h1 {
+    width: 400px;
+    border-bottom: 2px solid rgb(92, 176, 233);
+  }
+  .signup-form {
+    label {
+      font-size: 20px;
+      font: bold;
+      width: 400px;
+      border-bottom: 2px solid rgb(92, 176, 233);
     }
-    .signup-form{
-        label{
-            font-size:20px;
-            font:bold;
-            width:400px;
-            border-bottom: 2px solid rgb(92, 176, 233);
-        }
-        input{
-            margin-top:10px;
-            margin-bottom:15px;
-            width:300px;
-            border-radius: 5px;
-            height:25px;
-            border: 2px solid black;
-        }
-        button{
-            background: white;
-            border-radius: 3px;
-            position: relative;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100px;
-            padding: 10px 25px;
-            color: #313131;
-            transition: 0.3s ease-in-out;
-            font-weight: 500;
-        }
-        button:hover {
-            background: #313131;
-            color: #FFF;
-        }
-        button:after {
-            content: '';
-            width: 5px;
-            height: 5px;
-            border-top: 3px solid #313131;
-            border-right: 3px solid #313131;
-            transform: rotate(45deg) translateY(-50%);
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            border-radius: 1px;
-            transition: 0.3s ease-in-out;
-        }
-        button:hover:after {
-            border-color: #FFF;
-        }
+    input {
+      margin-top: 10px;
+      margin-bottom: 15px;
+      width: 300px;
+      border-radius: 5px;
+      height: 25px;
+      border: 2px solid black;
     }
-    button{
-        background: white;
-        border-radius: 3px;
-        position: relative;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 200px;
-        padding: 10px 25px;
-        color: #313131;
-        transition: 0.3s ease-in-out;
-        font-weight: 500;
+    button {
+      background: white;
+      border-radius: 3px;
+      position: relative;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100px;
+      padding: 10px 25px;
+      color: #313131;
+      transition: 0.3s ease-in-out;
+      font-weight: 500;
     }
     button:hover {
-        background: #313131;
-        color: #FFF;
+      background: #313131;
+      color: #fff;
     }
     button:after {
-        content: '';
-        width: 5px;
-        height: 5px;
-        border-top: 3px solid #313131;
-        border-right: 3px solid #313131;
-        transform: rotate(45deg) translateY(-50%);
-        position: absolute;
-        top: 50%;
-        right: 20px;
-        border-radius: 1px;
-        transition: 0.3s ease-in-out;
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-top: 3px solid #313131;
+      border-right: 3px solid #313131;
+      transform: rotate(45deg) translateY(-50%);
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      border-radius: 1px;
+      transition: 0.3s ease-in-out;
     }
     button:hover:after {
-        border-color: #FFF;
+      border-color: #fff;
     }
+  }
+  button {
+    background: white;
+    border-radius: 3px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px;
+    padding: 10px 25px;
+    color: #313131;
+    transition: 0.3s ease-in-out;
+    font-weight: 500;
+  }
+  button:hover {
+    background: #313131;
+    color: #fff;
+  }
+  button:after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-top: 3px solid #313131;
+    border-right: 3px solid #313131;
+    transform: rotate(45deg) translateY(-50%);
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    border-radius: 1px;
+    transition: 0.3s ease-in-out;
+  }
+  button:hover:after {
+    border-color: #fff;
+  }
 }
